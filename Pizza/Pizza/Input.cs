@@ -8,10 +8,11 @@ namespace Pizza
 {
     public class Input
     {
-        Customer[] customers;
+        public Customer[] customers;
         // generates a (random) set of customers used as input
         public Input(int amount, bool clusters)
         {
+            customers = new Customer[amount];
             customers = Generate(amount, clusters);
         }
 

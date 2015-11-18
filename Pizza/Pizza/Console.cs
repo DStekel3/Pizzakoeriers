@@ -10,7 +10,7 @@ namespace Pizza
     {
         public My_Console()
         {
-            Input p = new Input(10);
+            Input p = new Input(10, false);
             InitialPath i = new InitialPath(p);
             Console.WriteLine("Done.");
         }
