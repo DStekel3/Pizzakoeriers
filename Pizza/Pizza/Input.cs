@@ -8,7 +8,7 @@ namespace Pizza
 {
     public class Input
     {
-        Customer[] customers;
+        public Customer[] customers;
         // generates a (random) set of customers used as input
         public Input(int amount)
         {
@@ -18,7 +18,7 @@ namespace Pizza
                 Random r = new Random();
                 int x = r.Next(-100, 100);
                 int y = r.Next(-100, 100);
-                customers[t] = new Customer(x, y);
+                customers[t] = new Customer(x, y, t);
             }
         }
     }

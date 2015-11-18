@@ -12,12 +12,12 @@ namespace Pizza
 {
     public partial class Form1 : Form
     {
-        Console c;
+        My_Console c;
 
         public Form1()
         {
             InitializeComponent();
-            c = new Console();
+            c = new My_Console();
         }
     }
 }
