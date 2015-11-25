@@ -8,12 +8,6 @@ namespace Pizza
 {
   public class Deliveryman
   {
-    public int[] route;
-    public int length;
-
-    public Deliveryman(int path_length)
-    {
-      route = new int[path_length];
-    }
+    public List<int> route = new List<int>();
   }
 }

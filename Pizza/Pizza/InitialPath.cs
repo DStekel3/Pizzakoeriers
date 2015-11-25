@@ -17,7 +17,7 @@ namespace Pizza
     {
       path = new int[i.customers.Length + 1]; // initial route. path[0] = first customer we go to, path[n] = depot after we visited each customer
       visited = new bool[i.customers.Length];
-      RandomMultiple(i.customers, 1);
+      RandomMultiple(i.customers, 15);
       return;
     }
 
@@ -61,15 +61,14 @@ namespace Pizza
 
       for(int t =0;t<work.Length;t++)
       {
-        work[t] = new Deliveryman(customers.Length);
+        work[t] = new Deliveryman();
       }
 
       int cur = 0;
       int pos = 0;
       for (int t = 0; t < customers.Length; t++)
       {
-        work[cur].route[pos] = customers[t].ID;
-        work[cur].length++;
+        work[cur].route.Add(customers[t].ID);
         cur++;
         if (cur >= workers)
         {
