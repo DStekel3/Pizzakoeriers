@@ -32,7 +32,7 @@ namespace Pizza
                 System.Console.WriteLine("Clusters: 1 grote cluster");
             }
 
-            Customer[] c = new Customer[amount];
+            Customer[] c = new Customer[amount+1];
             int cnr = 1;
             for (int i = 0; i < clusters; i++)
             {
