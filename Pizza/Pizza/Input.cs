@@ -33,7 +33,7 @@ namespace Pizza
             }
 
             Customer[] c = new Customer[amount];
-            int cnr = 0;
+            int cnr = 1;
             for (int i = 0; i < clusters; i++)
             {
                 for (int t = 0; t < amount / clusters; t++)
