@@ -12,7 +12,7 @@ namespace Pizza
         // generates a (random) set of customers used as input
         public Input(int amount, bool clusters)
         {
-            customers = new Customer[amount];
+            customers = new Customer[amount+1];
             customers = Generate(amount, clusters);
         }
 
@@ -32,17 +32,17 @@ namespace Pizza
                 System.Console.WriteLine("Clusters: 1 grote cluster");
             }
 
-            Customer[] c = new Customer[amount];
-            int cnr = 0;
+            int cnr = 1;
             for (int i = 0; i < clusters; i++)
             {
                 for (int t = 0; t < amount / clusters; t++)
                 {
-                    int x = r.Next(-100, 100);
-                    int y = r.Next(-100, 100);
+                    int d = 1000 / clusters;
+                    int x = r.Next(d * i, d * i + 300);
+                    int y = r.Next(d * i, d * i + 300);
                     customers[cnr] = new Customer(x, y, cnr);
                     cnr++;
-                    System.Console.WriteLine("Customer " + cnr + ": X pos " + x + " , y pos " + y);
+                    System.Console.WriteLine("Customer " + cnr + ": X pos " + x + " , y pos " + y + " cluster: " + i);
                 }
             }
 
