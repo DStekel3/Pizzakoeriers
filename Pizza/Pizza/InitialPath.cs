@@ -15,17 +15,22 @@ namespace Pizza
 
     public InitialPath(Input i)
     {
-      path = new int[i.customers.Length + 1]; // initial route. path[0] = first customer we go to, path[n] = depot after we visited each customer
       visited = new bool[i.customers.Length];
-      RandomMultiple(i.customers, 15);
+      NearestNeighbour(i.customers, 1);
       return;
     }
 
-    public void NearestNeighbour(Customer[] customers)
+    public Solution NearestNeighbour(Customer[] customers, int amount)
     {
+      Deliveryman[] d = new Deliveryman[amount];
+      for(int t =0;t<d.Length;t++)
+      {
+        d[t] = new Deliveryman();
+      }
+
       Point cur_pos = new Point(0, 0);
-      path[path.Length - 1] = -1;
-      for (int x = 0; x < path.Length - 1; x++)
+
+      for (int x = 0; x < customers.Length/amount; x++)
       {
         int nearest_neighbour = -1;
         int best_dist = int.MaxValue;
@@ -42,22 +47,22 @@ namespace Pizza
             }
           }
         }
-        path[x] = nearest_neighbour;
-        length += best_dist;
+        d[0].route.Add(nearest_neighbour);
         visited[nearest_neighbour] = true;
         cur_pos = new Point(customers[nearest_neighbour].X, customers[nearest_neighbour].Y);
       }
+      return new Solution(customers, d);
     }
 
-    public Solution RandomMultiple(Customer[] customers, int workers)
+    public Solution RandomMultiple(Customer[] customers, int amount)
     {
-      Deliveryman[] work = new Deliveryman[workers];
+      Deliveryman[] work = new Deliveryman[amount];
 
       int path_length = 0;
-      if (customers.Length % workers == 0)
-        path_length = customers.Length / workers;
+      if (customers.Length % amount == 0)
+        path_length = customers.Length / amount;
       else
-        path_length = customers.Length / workers + 1;
+        path_length = customers.Length / amount + 1;
 
       for(int t =0;t<work.Length;t++)
       {
@@ -70,7 +75,7 @@ namespace Pizza
       {
         work[cur].route.Add(customers[t].ID);
         cur++;
-        if (cur >= workers)
+        if (cur >= amount)
         {
           cur = 0;
           pos++;
