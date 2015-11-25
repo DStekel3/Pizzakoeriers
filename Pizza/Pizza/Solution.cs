@@ -20,7 +20,6 @@ namespace Pizza
             rs = routes;
             // number of deliverymen
             n = rs.Length;
-            // use heuristic function...
         }
 
         public int Heuristic(int h)
@@ -28,14 +27,34 @@ namespace Pizza
             // Heuristic value
             int heuristic = 0;
 
-            // Heuristics
-            // ...     
+            // --- Heuristics ---
+            // Heuristic 1:
+            if (h == 0)
+            {
+                heuristic = costs();
+                /*
+                for (int i = 0; i < n; i++)
+                {
+                    // number of customers on the route
+                    int nodes = rs[i].Length;
+                    // total distance of the route
+                    int dist = 0;
+                    int jump = nodes / 4;
+
+                    for (int node = 0; node < nodes; node += jump)
+                    {
+
+                    }
+                }
+                */
+            }
             
             return heuristic;            
         }
 
         public int costs()
         {
+            // returns the actual costs of the solution
             int costs = 0;
             for (int i = 0; i < n; i++)
             {
@@ -73,10 +92,13 @@ namespace Pizza
 
         public Solution[] GenerateNeighbors(int g)
         {
+            Solution[] gs;
             // Neighbor Gen I
             if (g == 0)
-                return new Solution[1];
-            else return new Solution[1];
+            {
+                
+            }
+            return gs;
         }
     }
 }
