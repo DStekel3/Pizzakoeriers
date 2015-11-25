@@ -17,7 +17,7 @@ namespace Pizza
     {
       path = new int[i.customers.Length + 1]; // initial route. path[0] = first customer we go to, path[n] = depot after we visited each customer
       visited = new bool[i.customers.Length];
-      NearestNeighbour(i.customers);
+      RandomMultiple(i.customers, 10);
       return;
     }
 
@@ -47,6 +47,24 @@ namespace Pizza
         visited[nearest_neighbour] = true;
         cur_pos = new Point(customers[nearest_neighbour].X, customers[nearest_neighbour].Y);
       }
+    }
+
+    public void RandomMultiple(Customer[] customers, int workers)
+    {
+      int[,] d = new int[workers, customers.Length/workers+1];
+      int cur = 0;
+      int pos = 0;
+      for(int t =0;t<customers.Length;t++)
+      {
+        d[cur, pos] = customers[t].ID;
+        cur++;
+        if(cur > workers)
+        {
+          cur = 0;
+          pos++;
+        }
+      }
+      return;
     }
   }
 }
