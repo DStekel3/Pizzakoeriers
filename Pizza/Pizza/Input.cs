@@ -21,6 +21,7 @@ namespace Pizza
         {
             Random r = new Random();
             int clusters;
+            /*
             if (clustered)
             {
                 clusters = r.Next(2, 6);
@@ -31,20 +32,19 @@ namespace Pizza
                 clusters = 1;
                 System.Console.WriteLine("Clusters: 1 grote cluster");
             }
-
+            */
             int cnr = 1;
-            for (int i = 0; i < clusters; i++)
-            {
-                for (int t = 0; t < amount / clusters; t++)
+           
+                for (int t = 0; t < amount ; t++)
                 {
-                    int d = 1000 / clusters;
-                    int x = r.Next(d * i, d * i + 300);
-                    int y = r.Next(d * i, d * i + 300);
+                    //int d = 1000 / clusters;
+                    int x = r.Next(-1000, 1000);
+                    int y = r.Next(-1000, 1000);
                     customers[cnr-1] = new Customer(x, y, cnr);
                     cnr++;
-                    System.Console.WriteLine("Customer " + cnr + ": X pos " + x + " , y pos " + y + " cluster: " + i);
+                    System.Console.WriteLine("Customer " + cnr + ": X pos " + x + " , y pos " + y + " cluster: 1");
                 }
-            }
+            
 
             return customers;
         }
