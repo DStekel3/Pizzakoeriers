@@ -13,13 +13,13 @@ namespace Pizza
         int[][] path;
         Customer[] customers;
         Solution s;
-
+        /*
         public DeClassVanAndrew(Customer[] cust, int[][] input)
         {
             path = input;
             customers = cust;
         }
-        /*
+        
         public void CalculateInitial()
         {
             s = new Solution(customers, path);
