@@ -7,15 +7,15 @@ using System.Windows;
 
 namespace Pizza
 {
-    public class Customer
-    {
-        public int X { get; }
-        public int Y { get; }
-        public int ID { get; }
+  public class Customer
+  {
+    public int X { get; }
+    public int Y { get; }
+    public int ID { get; }
 
-        public Customer(int x, int y, int id)
-        {
-            X = x; Y = y; ID = id;
-        }
+    public Customer(int x, int y, int id)
+    {
+      X = x; Y = y; ID = id;
     }
+  }
 }

@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace Pizza
 {
-    class Solution
+    public class Solution
     {
         int n;
         Customer[] cs;
         int[][] rs;
         
-        public Solution(Customer[] customers, int[][] routes)
+        public Solution(Customer[] customers, Deliveryman[] d)
         {
             // customers, or 'map' of the problem
             cs = customers;
             // representation of the routes, by customer id's
-            rs = routes;
+            //rs = 
             // number of deliverymen
-            n = rs.Length;
+            n = d.Length;
         }
 
         public int Heuristic(int h)
