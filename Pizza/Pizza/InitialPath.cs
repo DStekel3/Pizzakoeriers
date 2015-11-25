@@ -51,7 +51,12 @@ namespace Pizza
 
     public void RandomMultiple(Customer[] customers, int workers)
     {
-      int[,] d = new int[workers, customers.Length/workers+1];
+      int path_length = 0;
+      if (customers.Length % workers == 0)
+        path_length = customers.Length / workers;
+      else
+        path_length = customers.Length / workers + 1;
+      int[,] d = new int[workers, path_length];
       int cur = 0;
       int pos = 0;
       for(int t =0;t<customers.Length;t++)
