@@ -90,13 +90,16 @@ namespace Pizza
         }
             
 
-        public Solution[] GenerateNeighbors(int g)
+        public List<Solution> GenerateNeighbors(int g, int num)
         {
-            Solution[] gs;
+            List<Solution> gs = new List<Solution>();
             // Neighbor Gen I
             if (g == 0)
             {
-                
+                for (int i = 0; i < num; i++)
+                {
+                    
+                }
             }
             return gs;
         }
