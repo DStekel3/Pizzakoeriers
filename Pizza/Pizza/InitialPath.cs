@@ -63,7 +63,7 @@ namespace Pizza
       {
         d[cur, pos] = customers[t].ID;
         cur++;
-        if (cur >= workers-1)
+        if (cur >= workers)
         {
           cur = 0;
           pos++;
