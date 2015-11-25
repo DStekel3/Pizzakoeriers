@@ -14,8 +14,6 @@ namespace Pizza
             InitialPath i = new InitialPath(p);
             int[][] initpath = new int[1][];
             initpath[0] = i.path;
-            Solution s = new Solution(p.customers, initpath, 0, 0);
-            Console.WriteLine("Heuristic: " + s.Heuristic().ToString());
             Console.WriteLine("Done.");
         }
 
