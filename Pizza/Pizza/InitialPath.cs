@@ -59,11 +59,11 @@ namespace Pizza
       int[,] d = new int[workers, path_length];
       int cur = 0;
       int pos = 0;
-      for(int t =0;t<customers.Length;t++)
+      for (int t = 0; t < customers.Length; t++)
       {
         d[cur, pos] = customers[t].ID;
         cur++;
-        if(cur > workers)
+        if (cur >= workers-1)
         {
           cur = 0;
           pos++;

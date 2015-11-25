@@ -30,12 +30,12 @@ namespace Pizza
         {
             for(int x = 0; x < iterations; x++)
             {
-                s.GenerateNeighbors(iterations);
+                //s.GenerateNeighbors(iterations);
                 cost_cur = s.costs();
                 if (cost_cur < cost_opt)
                 {
                     cost_opt = cost_cur;
-                    path = s.rs;
+                    //path = s.rs;
                 }
             }
         }

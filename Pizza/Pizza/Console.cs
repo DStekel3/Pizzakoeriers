@@ -12,10 +12,7 @@ namespace Pizza
         {
             Input p = new Input(50, true);
             InitialPath i = new InitialPath(p);
-            int[][] initpath = new int[1][];
-            initpath[0] = i.path;
-            Solution s = new Solution(p.customers, initpath);
-            Console.WriteLine("Heuristic: " + s.Heuristic(0).ToString());
+            
             Console.WriteLine("Done.");
         }
 
