@@ -12,8 +12,7 @@ namespace Pizza
         {
             Input p = new Input(10, false);
             InitialPath i = new InitialPath(p);
-            int[][] initpath = new int[1][];
-            initpath[0] = i.path;
+
             Console.WriteLine("Done.");
         }
 
