@@ -10,16 +10,19 @@ namespace Pizza
     {
         int n;
         Customer[] cs;
-        int[][] rs;
+        public Deliveryman[] rs;
+        Random rnd;
         
         public Solution(Customer[] customers, Deliveryman[] d)
         {
             // customers, or 'map' of the problem
             cs = customers;
             // representation of the routes, by customer id's
-            //rs = 
+            rs = d;
             // number of deliverymen
             n = d.Length;
+            // rnd
+            rnd = new Random();
         }
 
         public int Heuristic(int h)
@@ -59,7 +62,7 @@ namespace Pizza
             for (int i = 0; i < n; i++)
             {
                 // number of customers on the route
-                int nodes = rs[i].Length;
+                int nodes = rs[i].route.Count;
                 // total distance of the route
                 int dist = 0;
                 // customer id's and pos
@@ -71,7 +74,7 @@ namespace Pizza
                 for (int j = 0; j < nodes; j++)
                 {
                     // get node id
-                    id_b = rs[i][j];
+                    id_b = rs[i].route[j];
                     // get node position
                     x_b = cs[id_b].X;
                     y_b = cs[id_b].Y;
@@ -88,20 +91,54 @@ namespace Pizza
             }
             return costs;
         }
-            
 
         public List<Solution> GenerateNeighbors(int g, int num)
         {
             List<Solution> gs = new List<Solution>();
+
             // Neighbor Gen I
             if (g == 0)
             {
+                // generate n neighbors
                 for (int i = 0; i < num; i++)
                 {
-                    
+                    Deliveryman[] rx = rs;
+
+                    // Rnd route and nodes
+                    int rnd_route = rnd.Next(0, n);
+                    int rnd_nodeA = rnd.Next(0, rx[rnd_route].route.Count);
+                    int rnd_nodeB = rnd.Next(0, rx[rnd_route].route.Count);
+
+                    // Swap nodes
+                    int a = rs[rnd_route].route[rnd_nodeA];
+                    rx[rnd_route].route[rnd_nodeA] = rx[rnd_route].route[rnd_nodeB];
+                    rx[rnd_route].route[rnd_nodeB] = a;
+
+                    gs.Add(new Solution(cs, rx));
                 }
             }
             return gs;
+        }
+
+        public Solution NextNeighbor(int g)
+        {
+            if (g == 0)
+            {
+                // Rnd route and nodes
+                int rnd_route = rnd.Next(0, n);
+                int rnd_nodeA = rnd.Next(0, rs[rnd_route].route.Count);
+                int rnd_nodeB = rnd.Next(0, rs[rnd_route].route.Count);
+
+                // Swap nodes
+                int a = rs[rnd_route].route[rnd_nodeA];
+                rs[rnd_route].route[rnd_nodeA] = rs[rnd_route].route[rnd_nodeB];
+                rs[rnd_route].route[rnd_nodeB] = a;
+
+                // Return new Solution
+                return new Solution(cs, rs);
+            }
+            else
+                return new Solution(cs, rs);
         }
     }
 }
