@@ -19,7 +19,7 @@ namespace Pizza
             path = input;
             customers = cust;
         }
-
+        /*
         public void CalculateInitial()
         {
             s = new Solution(customers, path);
@@ -39,6 +39,6 @@ namespace Pizza
                 }
             }
         }
-
+        */
     }
 }
