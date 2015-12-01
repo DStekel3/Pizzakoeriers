@@ -12,13 +12,21 @@ namespace Pizza
     public int[] path; // gives the order of customers in the initial path
     bool[] visited; // visited[x] = true when X is visited in path
     public int length; // total length of the initial path
+    public Customer[] cs;
 
     public InitialPath(Input i)
     {
-      visited = new bool[i.customers.Length];
-      NearestNeighbour(i.customers, 1);
-      return;
+        cs = i.customers;
+        visited = new bool[cs.Length];
     }
+
+    public Solution getSolution(int mode)
+    {
+            if (mode == 0)
+                return NearestNeighbour(cs, 1);
+            else
+                return RandomMultiple(cs, 4);
+        }
 
     public Solution NearestNeighbour(Customer[] customers, int amount)
     {
@@ -48,8 +56,8 @@ namespace Pizza
           }
         }
         d[0].route.Add(nearest_neighbour);
-        visited[nearest_neighbour] = true;
-        cur_pos = new Point(customers[nearest_neighbour].X, customers[nearest_neighbour].Y);
+        visited[nearest_neighbour - 1] = true;
+        cur_pos = new Point(customers[nearest_neighbour - 1].X, customers[nearest_neighbour - 1].Y);
       }
       return new Solution(customers, d);
     }
