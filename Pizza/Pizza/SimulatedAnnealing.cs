@@ -25,23 +25,27 @@ namespace Pizza
         public Solution run()
         {
             int cool = 0;
+            int states = 0;
+            int accepted_b = 0;
+            int accepted_w = 0;
             while (t > 0.1)
             {
                 float s_h = s.Heuristic(h);
                 int iteraties = 0;
                 Console.WriteLine("Temperature: " + t.ToString() + " costs: " + s_h.ToString());
 
-                // get neighbor
                 bool accept = false;
                 while (!accept && iteraties < 100)
                 {
                     Solution next = s.NextNeighbor(g);
+                    states++;
                     float next_h = next.Heuristic(h);
                     iteraties++;
                     if (next_h <= s_h)
                     {
                         s = next;
                         accept = true;
+                        accepted_b++;
                     }
                     else
                     {
@@ -53,9 +57,10 @@ namespace Pizza
                             // accept solution
                             s = next;
                             accept = true;
+                            accepted_w++;
                         }
                     }                        
-                }
+                }                
 
                 // cooling
                 cool++;
@@ -66,7 +71,7 @@ namespace Pizza
                     t = a * t;
                 }
             }
-
+            Console.WriteLine("states generated: " + states + " accepted better: " + accepted_b + " accepted worse: " + accepted_w);
             return s;
         }
     }
