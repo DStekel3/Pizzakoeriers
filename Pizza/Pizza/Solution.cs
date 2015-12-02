@@ -13,13 +13,13 @@ namespace Pizza
         public Customer[] cs;
         public Deliveryman[] rs;
         Random rnd;
-        
+
         public Solution(Customer[] customers, Deliveryman[] d)
         {
             // customers, or 'map' of the problem            
             cs = customers;
             // representation of the routes, by customer id's
-            rs = d;            
+            rs = d;
             // number of deliverymen
             n = d.Length;
             // rnd
@@ -52,8 +52,8 @@ namespace Pizza
                 }
                 */
             }
-            
-            return heuristic;            
+
+            return heuristic;
         }
 
         public int costs()
@@ -152,10 +152,91 @@ namespace Pizza
                 return new Solution(cs, rs);
         }
 
+        public void Untwine()
+        {
+            foreach (Deliveryman d in rs)
+            {
+                for (int i = 0; i < d.route.Count - 3; i++)
+                {
+                    Edge e1 = new Edge(cs[d.route[i]], cs[d.route[i + 1]]);
+                    Edge e2 = new Edge(cs[d.route[i + 2]], cs[d.route[i + 3]]);
+
+                    if(Intersect(e1, e2))
+                    {
+                        int temp = d.route[i + 1];
+                        d.route[i + 1] = d.route[i + 2];
+                        d.route[i + 2] = temp;
+                    }
+                }
+            }
+        }
+
+        public bool Intersect(Edge e1, Edge e2)
+        {
+            int links = e1.A - e2.A;
+            int rechts = e2.Y1 - e1.Y1;
+            int x;
+            if (links == 0)
+                return false;
+            else
+            {
+                x = rechts / links;
+                if (InRange(x, e1) && InRange(x, e2))
+                    return true;
+
+                return false;
+            }
+
+        }
+        public bool InRange(int x, Edge e)
+        {
+            if (e.X1 <= e.X2)
+                if (e.X1 <= x && x <= e.X2)
+                    return true;
+            if (e.X2 <= x && x <= e.X1)
+                return true;
+            return false;
+        }
+        
+
         public void Draw()
         {
             Display display = new Display(this);
             Application.Run(display);
         }
     }
+
+    public class Edge
+    {
+        public int ID1;
+        public int ID2;
+
+        public int X1 { get; }
+        public int X2 { get; }
+        public int Y1 { get; }
+        public int Y2 { get; }
+        public int A { get; set; }
+
+        public Edge(Customer c1, Customer c2)
+        {
+            ID1 = c1.ID;
+            ID2 = c2.ID;
+            X1 = c1.X;
+            X2 = c2.X;
+            Y1 = c1.Y;
+            Y2 = c2.Y;
+
+            Helling();
+        }
+
+        private void Helling()
+        {
+            int dx = X2 - X1;
+            int dy = Y2 - Y1;
+            A = dy / dx;
+        }
+
+       
+    }
+    
 }
