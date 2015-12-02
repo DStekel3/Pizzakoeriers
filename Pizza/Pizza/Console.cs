@@ -13,14 +13,15 @@ namespace Pizza
             Input p = new Input(200, true);
             InitialPath init = new InitialPath(p);
             Solution initial_solution = init.getSolution(1);
+            int inicost = initial_solution.costs();
             while (true)
-            {                
-                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 1500, 0.95f, 0, 1);
-                Solution result_solution = sa.run();
-
+            {
+                //SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 1500, 0.95f, 0, 1);
+                Untwiner utw = new Untwiner(initial_solution);
+                Solution result_solution = utw.Untwineeee();
                 // Present results
                 Console.WriteLine("----------------");
-                Console.WriteLine("init solution: " + initial_solution.costs());
+                Console.WriteLine("init solution: " + inicost);
                 Console.WriteLine("result solution: " + result_solution.costs());
                 Console.WriteLine("----------------");
                 Console.WriteLine("Done.");
@@ -29,6 +30,7 @@ namespace Pizza
                 result_solution.Draw();
                 Console.ReadLine();
             }
+            
         }
 
         // Add algorithms and other stuff you need to solve the TSP-problem
