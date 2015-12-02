@@ -35,7 +35,7 @@ namespace Pizza
                 Console.WriteLine("Temperature: " + t.ToString() + " costs: " + s_h.ToString());
 
                 bool accept = false;
-                while (!accept && iteraties < 100)
+                while (!accept && iteraties < 10)
                 {
                     Solution next = s.NextNeighbor(g);
                     states++;
