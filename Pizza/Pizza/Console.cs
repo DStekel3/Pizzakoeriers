@@ -14,7 +14,7 @@ namespace Pizza
             InitialPath init = new InitialPath(p);
             Solution initial_solution = init.getSolution(1);
             int initial_costs = initial_solution.costs();
-            SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 1500, 0.95f, 0, 0);
+            SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 1500, 0.95f, 0, 1);
             Solution result_solution = sa.run();            
 
             // Present results
