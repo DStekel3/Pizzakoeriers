@@ -148,6 +148,32 @@ namespace Pizza
                 // Return new Solution
                 return new Solution(cs, rx);
             }
+            else if (g == 1)
+            {
+                Random r2 = new Random();
+                Deliveryman[] rx = new Deliveryman[rs.Length];
+                for (int i = 0; i < rs.Length; i++)
+                {
+                    rx[i] = new Deliveryman();
+                    foreach (int c in rs[i].route)
+                        rx[i].route.Add(c);
+                }
+
+                int rnd_first = r2.Next(0, n); //Deliveryman to take customer from
+                int l_first = rx[rnd_first].route.Count();
+                int rnd_second = r2.Next(0, n); //Deliveryman to put customer in
+                int node_first = r2.Next(0, l_first); //Customer to move
+
+                //Add customer to new route and remove from initial one only if first route would not end up empty
+                if (rx[rnd_first].route.Count() - 1 > 1)
+                {
+                    rx[rnd_second].route.Add(rx[rnd_first].route[node_first]);
+                    rx[rnd_first].route.RemoveAt(node_first);
+                }
+
+                //Return new solution
+                return new Solution(cs, rx);
+            }
             else
                 return new Solution(cs, rs);
         }
