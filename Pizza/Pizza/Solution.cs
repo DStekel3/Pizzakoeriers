@@ -60,6 +60,7 @@ namespace Pizza
         {
             // returns the actual costs of the solution
             int costs = 0;
+            int longest = 0;
             for (int i = 0; i < n; i++)
             {
                 // number of customers on the route
@@ -86,42 +87,21 @@ namespace Pizza
                     x_a = x_b;
                     y_a = y_b;
                 }
+                // back to depot
+                dist += Math.Abs(x_a - 0) + Math.Abs(y_a - 0);
 
                 // add route distance to total heuristic value
                 costs += dist;
+
+                // update longest
+                if (longest < dist)
+                    longest = dist;         
             }
-            return costs;
+            // calculate average distance per route
+            costs /= n;
+
+            return costs + longest;
         }
-
-        /*
-        public List<Solution> GenerateNeighbors(int g, int num)
-        {
-            List<Solution> gs = new List<Solution>();
-
-            // Neighbor Gen I
-            if (g == 0)
-            {
-                // generate n neighbors
-                for (int i = 0; i < num; i++)
-                {
-                    Deliveryman[] rx = rs;
-
-                    // Rnd route and nodes
-                    int rnd_route = rnd.Next(0, n);
-                    int rnd_nodeA = rnd.Next(0, rx[rnd_route].route.Count);
-                    int rnd_nodeB = rnd.Next(0, rx[rnd_route].route.Count);
-
-                    // Swap nodes
-                    int a = rs[rnd_route].route[rnd_nodeA];
-                    rx[rnd_route].route[rnd_nodeA] = rx[rnd_route].route[rnd_nodeB];
-                    rx[rnd_route].route[rnd_nodeB] = a;
-
-                    gs.Add(new Solution(cs, rx));
-                }
-            }
-            return gs;
-        }
-        */
 
         public Solution NextNeighbor(int g)
         {

@@ -67,7 +67,7 @@ namespace Pizza
                     // update p1
                     p1 = p2;
                 }
-
+                pea.Graphics.DrawLine(new Pen(brush), new Point(p1.X + 5, p1.Y + 5), new Point(depot.X + 5, depot.Y + 5));
                 pea.Graphics.FillEllipse(Brushes.Black, new Rectangle(depot, new Size(new Point(10, 10))));
             }                     
         }
