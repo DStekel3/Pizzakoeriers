@@ -46,7 +46,7 @@ namespace Pizza
                     else
                     {
                         double p = Math.Exp(-(next_h - s_h) / t);
-                        Console.WriteLine("kans op acceptatie: " + p + "d: " + (next_h - s_h).ToString());
+                        //Console.WriteLine("kans op acceptatie: " + p + "d: " + (next_h - s_h).ToString());
                         double r = rnd.NextDouble();
                         if (p > r)
                         {
