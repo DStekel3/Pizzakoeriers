@@ -59,8 +59,8 @@ namespace Pizza
 
                 // cooling
                 cool++;
-                cool += iteraties;
-                if (cool > 100)
+                //cool += iteraties;
+                if (cool > 16)
                 {
                     cool = 0;
                     t = a * t;

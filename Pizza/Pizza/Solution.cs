@@ -60,6 +60,7 @@ namespace Pizza
         {
             // returns the actual costs of the solution
             int costs = 0;
+            int longest = 0;
             for (int i = 0; i < n; i++)
             {
                 // number of customers on the route
@@ -86,42 +87,21 @@ namespace Pizza
                     x_a = x_b;
                     y_a = y_b;
                 }
+                // back to depot
+                dist += Math.Abs(x_a - 0) + Math.Abs(y_a - 0);
 
                 // add route distance to total heuristic value
                 costs += dist;
+
+                // update longest
+                if (longest < dist)
+                    longest = dist;         
             }
-            return costs;
+            // calculate average distance per route
+            costs /= n;
+
+            return costs + longest;
         }
-
-        /*
-        public List<Solution> GenerateNeighbors(int g, int num)
-        {
-            List<Solution> gs = new List<Solution>();
-
-            // Neighbor Gen I
-            if (g == 0)
-            {
-                // generate n neighbors
-                for (int i = 0; i < num; i++)
-                {
-                    Deliveryman[] rx = rs;
-
-                    // Rnd route and nodes
-                    int rnd_route = rnd.Next(0, n);
-                    int rnd_nodeA = rnd.Next(0, rx[rnd_route].route.Count);
-                    int rnd_nodeB = rnd.Next(0, rx[rnd_route].route.Count);
-
-                    // Swap nodes
-                    int a = rs[rnd_route].route[rnd_nodeA];
-                    rx[rnd_route].route[rnd_nodeA] = rx[rnd_route].route[rnd_nodeB];
-                    rx[rnd_route].route[rnd_nodeB] = a;
-
-                    gs.Add(new Solution(cs, rx));
-                }
-            }
-            return gs;
-        }
-        */
 
         public Solution NextNeighbor(int g)
         {
@@ -146,6 +126,32 @@ namespace Pizza
                 rx[rnd_route].route[rnd_nodeB] = a;
 
                 // Return new Solution
+                return new Solution(cs, rx);
+            }
+            else if (g == 1)
+            {
+                Random r2 = new Random();
+                Deliveryman[] rx = new Deliveryman[rs.Length];
+                for (int i = 0; i < rs.Length; i++)
+                {
+                    rx[i] = new Deliveryman();
+                    foreach (int c in rs[i].route)
+                        rx[i].route.Add(c);
+                }
+
+                int rnd_first = r2.Next(0, n); //Deliveryman to take customer from
+                int l_first = rx[rnd_first].route.Count();
+                int rnd_second = r2.Next(0, n); //Deliveryman to put customer in
+                int node_first = r2.Next(0, l_first); //Customer to move
+
+                //Add customer to new route and remove from initial one only if first route would not end up empty
+                if (rx[rnd_first].route.Count() - 1 > 1)
+                {
+                    rx[rnd_second].route.Add(rx[rnd_first].route[node_first]);
+                    rx[rnd_first].route.RemoveAt(node_first);
+                }
+
+                //Return new solution
                 return new Solution(cs, rx);
             }
             else
