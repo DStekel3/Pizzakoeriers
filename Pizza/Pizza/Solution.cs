@@ -59,8 +59,7 @@ namespace Pizza
     public int costs()
     {
       // returns the actual costs of the solution
-      int costs = 0;
-      int longest = 0;
+      int total_time = 0;
       for (int i = 0; i < n; i++)
       {
         // number of customers on the route
@@ -82,25 +81,17 @@ namespace Pizza
           y_b = cs[id_b - 1].Y;
           // calculate distance between node a and b
           dist += Math.Abs(x_a - x_b) + Math.Abs(y_a - y_b);
+          total_time += dist;
           // a = b
           id_a = id_b;
           x_a = x_b;
           y_a = y_b;
         }
         // back to depot
-        dist += Math.Abs(x_a - 0) + Math.Abs(y_a - 0);
-
-        // add route distance to total heuristic value
-        costs += dist;
-
-        // update longest
-        if (longest < dist)
-          longest = dist;
+        //dist += Math.Abs(x_a - 0) + Math.Abs(y_a - 0);
       }
-      // calculate average distance per route
-      costs /= n;
-
-      return costs + longest;
+      // calculate average delivery duration per route
+      return total_time;
     }
 
     public Solution NextNeighbor(int g)
@@ -125,7 +116,6 @@ namespace Pizza
         rx[rnd_route].route[rnd_nodeA] = rx[rnd_route].route[rnd_nodeB];
         rx[rnd_route].route[rnd_nodeB] = a;
 
-        Untwine();
         // Return new Solution
         return new Solution(cs, rx);
       }
@@ -148,10 +138,11 @@ namespace Pizza
         //Add customer to new route and remove from initial one only if first route would not end up empty
         if (rx[rnd_first].route.Count() - 1 > 1)
         {
-          rx[rnd_second].route.Add(rx[rnd_first].route[node_first]);
+          int r = rnd.Next(0, rx[rnd_second].route.Count);
+          rx[rnd_second].route.Insert(r, rx[rnd_first].route[node_first]);
+          //rx[rnd_second].route.Add(rx[rnd_first].route[node_first]);
           rx[rnd_first].route.RemoveAt(node_first);
         }
-        Untwine();
         //Return new solution
         return new Solution(cs, rx);
       }
