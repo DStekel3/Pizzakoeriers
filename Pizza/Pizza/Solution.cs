@@ -160,7 +160,7 @@ namespace Pizza
 
         public void Draw()
         {
-            Display display = new Display(this);
+            Display display = new Display(this); 
             Application.Run(display);
         }
     }
