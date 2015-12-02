@@ -164,14 +164,17 @@ namespace Pizza
             {
                 for (int i = 0; i < d.route.Count - 3; i++)
                 {
-                    Edge e1 = new Edge(cs[d.route[i]], cs[d.route[i + 1]]);
-                    Edge e2 = new Edge(cs[d.route[i + 2]], cs[d.route[i + 3]]);
-
-                    if(Intersect(e1, e2))
+                    for (int j = 2; j < d.route.Count - 1; j++)
                     {
-                        int temp = d.route[i + 1];
-                        d.route[i + 1] = d.route[i + 2];
-                        d.route[i + 2] = temp;
+                        Edge e1 = new Edge(cs[d.route[i]], cs[d.route[i + 1]]);
+                        Edge e2 = new Edge(cs[d.route[i + j]], cs[d.route[i + j+1]]);
+
+                        if (Intersect(e1, e2))
+                        {
+                            int temp = d.route[i + 1];
+                            d.route[i + 1] = d.route[i + j];
+                            d.route[i + j] = temp;
+                        }
                     }
                 }
             }
