@@ -125,8 +125,9 @@ namespace Pizza
                 rx[rnd_route].route[rnd_nodeA] = rx[rnd_route].route[rnd_nodeB];
                 rx[rnd_route].route[rnd_nodeB] = a;
 
-                // Return new Solution
-                return new Solution(cs, rx);
+        Untwine();
+        // Return new Solution
+        return new Solution(cs, rx);
             }
             else if (g == 1)
             {
@@ -151,6 +152,7 @@ namespace Pizza
                     rx[rnd_first].route.RemoveAt(node_first);
                 }
 
+        Untwine();
                 //Return new solution
                 return new Solution(cs, rx);
             }
