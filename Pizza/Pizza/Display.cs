@@ -50,9 +50,11 @@ namespace Pizza
         public void drawSolution(object sender, PaintEventArgs pea)
         {
             Pen pen = new Pen(Brushes.Red);
+            definteBrushes();
             foreach (Deliveryman d in sol.rs)
             {
                 Brush brush = brushes[0];
+             
                 brushes.RemoveAt(0);
                 Point p1 = depot;
                 
