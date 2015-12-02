@@ -44,7 +44,6 @@ namespace Pizza
         int best_dist = int.MaxValue;
         for (int t = 0; t < customers.Length; t++)
         {
-
           if (!visited[t])
           {
             int dist = Math.Abs(customers[t].X - cur_pos.X) + Math.Abs(customers[t].Y - cur_pos.Y);
