@@ -132,29 +132,19 @@ namespace Pizza
 
                 // randomly select two different routes
                 int route_a = rnd.Next(0, rx.Length);
-                int route_b;
-                int r;
-                if (route_a == 0)
-                    r = 1;
-                else if (route_a == rx.Length)
-                    r = 0;
-                else
-                    r = rnd.Next(0, 1);
-                if (r == 1)
-                    route_b = rnd.Next(0, route_a);
-                else
-                    route_b = rnd.Next(route_a, rx.Length);
+                int route_b = rnd.Next(0, rx.Length);
 
                 // select random node from route a
-                int node_a = rnd.Next(0, rx[route_a].route.Count - 1);
+                int index = rnd.Next(0, rx[route_a].route.Count - 1);
+                int node_a = rx[route_a].route.ElementAt(index);
 
                 // select node from route b that is closest to node a
                 int closest_node = 0;
                 int closest_value = int.MaxValue;
                 foreach (int node in rx[route_b].route)
                 {
-                    int dist = (Math.Abs(cs[node_a].X - cs[node - 1].X) + Math.Abs(cs[node_a].Y - cs[node - 1].Y));
-                    if (closest_value > dist)
+                    int dist = (Math.Abs(cs[node_a - 1].X - cs[node - 1].X) + Math.Abs(cs[node_a - 1].Y - cs[node - 1].Y));
+                    if (closest_value > dist && node != node_a)
                     {
                         closest_node = node;
                         closest_value = dist;
@@ -162,7 +152,7 @@ namespace Pizza
                 }
 
                 // add this node to route a
-                rx[route_a].route.Insert(node_a, closest_node);
+                rx[route_a].route.Insert(index, closest_node);
                 rx[route_b].route.Remove(closest_node);
 
                 // return solution

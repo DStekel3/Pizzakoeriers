@@ -10,7 +10,7 @@ namespace Pizza
     {
         public My_Console()
         {
-            Input p = new Input(20, true);
+            Input p = new Input(200, true);
             InitialPath init = new InitialPath(p);
             Solution initial_solution = init.getSolution(1);
             while (true)
