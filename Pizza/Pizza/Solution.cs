@@ -96,6 +96,7 @@ namespace Pizza
 
         public Solution NextNeighbor(int g)
         {
+            //Swap two nodes in the same route
             if (g == 0)
             {
                 Deliveryman[] rx = new Deliveryman[rs.Length];
@@ -119,6 +120,7 @@ namespace Pizza
                 // Return new Solution
                 return new Solution(cs, rx);
             }
+            //Move a node from one route to another
             else if (g == 1)
             {
                 Random r2 = new Random();
@@ -146,6 +148,7 @@ namespace Pizza
                 //Return new solution
                 return new Solution(cs, rx);
             }
+            //Move node from one route to closest node from another route in the route
             else if (g == 2)
             {
                 Deliveryman[] rx = new Deliveryman[rs.Length];
