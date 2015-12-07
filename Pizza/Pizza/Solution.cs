@@ -139,8 +139,7 @@ namespace Pizza
         if (rx[rnd_first].route.Count() - 1 > 1)
         {
           int r = rnd.Next(0, rx[rnd_second].route.Count);
-          rx[rnd_second].route.Insert(r, rx[rnd_first].route[node_first]);
-          //rx[rnd_second].route.Add(rx[rnd_first].route[node_first]);
+          rx[rnd_second].route.Add(rx[rnd_first].route[node_first]);
           rx[rnd_first].route.RemoveAt(node_first);
         }
         //Return new solution

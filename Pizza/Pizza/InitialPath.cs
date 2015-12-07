@@ -23,14 +23,14 @@ namespace Pizza
     public Solution getSolution(int mode)
     {
             if (mode == 0)
-                return NearestNeighbour(cs, 1);
+                return EqualNeighbour(cs, 2);
             else
                 return RandomMultiple(cs, 2);
         }
 
-    public Solution NearestNeighbour(Customer[] customers, int amount)
+    public Solution NearestNeighbour(Customer[] customers, int deliverers)
     {
-      Deliveryman[] d = new Deliveryman[amount];
+      Deliveryman[] d = new Deliveryman[deliverers];
       for(int t =0;t<d.Length;t++)
       {
         d[t] = new Deliveryman();
@@ -38,7 +38,7 @@ namespace Pizza
 
       Point cur_pos = new Point(0, 0);
 
-      for (int x = 0; x < customers.Length/amount; x++)
+      for (int x = 0; x < customers.Length/ deliverers; x++)
       {
         int nearest_neighbour = -1;
         int best_dist = int.MaxValue;
@@ -61,6 +61,45 @@ namespace Pizza
       return new Solution(customers, d);
     }
 
+    public Solution EqualNeighbour(Customer[] customers, int deliverers)
+    {
+      Deliveryman[] ds = new Deliveryman[deliverers];
+      for (int t = 0; t < ds.Length; t++)
+      {
+        ds[t] = new Deliveryman();
+      }
+
+      for (int x = 0; x < customers.Length; x++)
+      {
+        int laziest = int.MaxValue;
+        Deliveryman l = null;
+        foreach (Deliveryman d in ds)
+        {
+          int score = 0;
+          Point cur_pos = new Point(0, 0);
+          foreach (int z in d.route)
+          {
+            int dist = Math.Abs(cs[z - 1].X - cur_pos.X) + Math.Abs(cs[z - 1].Y - cur_pos.Y);
+            score += dist;
+            cur_pos = new Point(cs[z - 1].X, cs[z - 1].Y);
+          }
+
+          score += Math.Abs(cur_pos.X - 0) + Math.Abs(cur_pos.Y - 0);
+          if (score < laziest)
+          { laziest = score; l = d; }
+        }
+
+        for(int t = 0; t < ds.Length; t++)
+        {
+          if (ds[t] == l)
+            ds[t].route.Add(customers[x].ID);
+        }
+      }
+
+      return new Solution(customers, ds);
+    }
+
+    
     public Solution RandomMultiple(Customer[] customers, int amount)
     {
       Deliveryman[] work = new Deliveryman[amount];

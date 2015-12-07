@@ -12,7 +12,7 @@ namespace Pizza
         // generates a (random) set of customers used as input
         public Input(int amount, bool clusters)
         {
-            customers = new Customer[amount ];
+            customers = new Customer[amount];
             customers = Generate(amount, clusters);
         }
 

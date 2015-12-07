@@ -71,7 +71,7 @@ namespace Pizza
                     t = a * t;
                 }
             }
-            s.Untwine();
+            s.Untwine(); 
             Console.WriteLine("states generated: " + states + " accepted better: " + accepted_b + " accepted worse: " + accepted_w);
             return s;
         }
