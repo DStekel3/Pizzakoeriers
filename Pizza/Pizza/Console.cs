@@ -10,16 +10,13 @@ namespace Pizza
     {
         public My_Console()
         {
-            Input p = new Input(10, true);
+            Input p = new Input(20, true);
             InitialPath init = new InitialPath(p);
-      int begin_nodes = init.cs.Length;
-            Solution initial_solution = init.getSolution(0);
+            Solution initial_solution = init.getSolution(1);
             while (true)
             {                
-                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 1500, 0.95f, 0, 1);
+                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 2);
                 Solution result_solution = sa.run();
-        int end_nodes = result_solution.cs.Length;
-        Console.WriteLine("Begin: " + begin_nodes + ", End: " + end_nodes);
 
                 // Present results
                 Console.WriteLine("----------------");
