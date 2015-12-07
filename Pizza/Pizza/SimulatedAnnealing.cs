@@ -21,6 +21,7 @@ namespace Pizza
             rnd = new Random();
         }
 
+        // run Simulated Annealing
         public Solution run()
         {
             int cool = 0;
