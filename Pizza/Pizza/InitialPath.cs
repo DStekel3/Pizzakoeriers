@@ -25,7 +25,7 @@ namespace Pizza
             if (mode == 0)
                 return EqualNeighbour(cs, 2);
             else
-                return RandomMultiple(cs, 4);
+                return RandomMultiple(cs, 1);
         }
 
     public Solution NearestNeighbour(Customer[] customers, int deliverers)

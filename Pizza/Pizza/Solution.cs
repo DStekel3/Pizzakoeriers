@@ -198,27 +198,27 @@ namespace Pizza
                 return new Solution(cs, rs);
         }
 
-    public void Untwine()
-    {
-      foreach (Deliveryman d in rs)
-      {
-        for (int i = 0; i < d.route.Count - 3; i++)
+        public void Untwine()
         {
-          for (int j = i + 2; j < d.route.Count - 1; j++)
-          {
-            Edge e1 = new Edge(cs[d.route[i] - 1], cs[d.route[i + 1] - 1]);
-            Edge e2 = new Edge(cs[d.route[j] - 1], cs[d.route[j + 1] - 1]);
-
-            if (Intersect(e1, e2))
+            foreach (Deliveryman d in rs)
             {
-              int temp = d.route[i + 1];
-              d.route[i + 1] = d.route[j];
-              d.route[j] = temp;
+                for (int i = 0; i < d.route.Count - 3; i++)
+                {
+                    for (int j = i + 2; j < d.route.Count - 1; j++)
+                    {
+                        Edge e1 = new Edge(cs[d.route[i] - 1], cs[d.route[i + 1] - 1]);
+                        Edge e2 = new Edge(cs[d.route[j] - 1], cs[d.route[j + 1] - 1]);
+
+                        if (Intersect(e1, e2))
+                        {
+                            int temp = d.route[i + 1];
+                            d.route[i + 1] = d.route[j];
+                            d.route[j] = temp;
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
 
     public bool Intersect(Edge e1, Edge e2)
     {

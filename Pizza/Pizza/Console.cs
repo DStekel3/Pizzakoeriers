@@ -8,27 +8,42 @@ namespace Pizza
 {
     class My_Console
     {
-        public My_Console()
+        public My_Console(int aantal)
         {
-            Input p = new Input(20, true);
+            Logger l = new Logger(aantal+4);
+            Input p = new Input(10, true);
             InitialPath init = new InitialPath(p);
             Solution initial_solution = init.getSolution(1);
-            while (true)
-            {                
-                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 2);
+
+            l.AddLine("Simulated Annealing");
+            l.AddLine("Temperature: " + 100);
+            l.AddLine("Cooling rate: " + 0.95f);
+            l.AddLine("Neighbor functie: "+1);
+
+
+            Console.WriteLine("----------------");
+            string initcost = "init solution: " + initial_solution.costs();
+            Console.WriteLine("----------------");
+            Console.WriteLine(initcost);
+
+            l.AddLine(initcost);
+            for(int i = 0; i<aantal;i++)
+            {
+                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 1);
+
                 Solution result_solution = sa.run();
+                // Present results  
+                int nr = i + 1;
+                string rescost = "result solution " + nr + " :" + result_solution.costs();
+                Console.WriteLine(rescost);
+                l.AddLine(rescost);
 
-                // Present results
-                Console.WriteLine("----------------");
-                Console.WriteLine("init solution: " + initial_solution.costs());
-                Console.WriteLine("result solution: " + result_solution.costs());
-                Console.WriteLine("----------------");
-                Console.WriteLine("Done.");
-
-                initial_solution.Draw();
-                result_solution.Draw();
-                Console.ReadLine();
+                //initial_solution.Draw();
+                //result_solution.Draw();
             }
+            Console.WriteLine("Done.");
+            l.Write();
+            Console.ReadLine();
         }
 
         // Add algorithms and other stuff you need to solve the TSP-problem
