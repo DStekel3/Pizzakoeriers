@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="InitialPath.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulatedAnnealing.cs" />
