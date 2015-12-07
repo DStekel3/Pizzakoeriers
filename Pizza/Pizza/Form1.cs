@@ -17,7 +17,8 @@ namespace Pizza
         public Form1()
         {
             InitializeComponent();
-            c = new My_Console(30);
+            c = new My_Console();
+            this.Close();
         }
     }
 }

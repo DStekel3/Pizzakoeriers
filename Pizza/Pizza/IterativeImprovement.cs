@@ -29,6 +29,7 @@ namespace Pizza
                 {
                     cost_opt = cost_cur; //...update optimal cost...
                     s = s_next; //...and update best route
+                    x = 0;
                 }
             }
             return s;

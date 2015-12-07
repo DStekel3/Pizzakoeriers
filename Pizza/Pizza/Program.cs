@@ -16,7 +16,8 @@ namespace Pizza
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+      My_Console m = new My_Console();
+            //Application.Run(new Form1());
         }
     }
 }
