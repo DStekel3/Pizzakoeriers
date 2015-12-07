@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace Pizza
 {
-    class DeClassVanAndrew
+    class IterativeImprovement
     {
         int iterations = 10; //Amount of neighbouring solutions to look at
         int cost_opt, cost_cur;
         Solution s;
         
-        public DeClassVanAndrew(Solution initial_solution)
+        public IterativeImprovement(Solution initial_solution, int iter)
         {
             s = initial_solution;
+            iterations = iter;
             cost_opt = s.costs(); //Initial optimal cost
         }
 

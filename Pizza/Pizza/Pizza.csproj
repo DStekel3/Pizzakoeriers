@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Console.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="DeClassVanAndrew.cs" />
+    <Compile Include="IterativeImprovement.cs" />
     <Compile Include="Deliveryman.cs" />
     <Compile Include="Display.cs">
       <SubType>Form</SubType>
