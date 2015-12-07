@@ -10,15 +10,16 @@ namespace Pizza
     {
         public My_Console(int aantal)
         {
-            Logger l = new Logger(aantal+4);
+            Logger l = new Logger(aantal+5);
             Input p = new Input(10, true);
             InitialPath init = new InitialPath(p);
-            Solution initial_solution = init.getSolution(1);
+            Solution initial_solution = init.getSolution(1, 4);
 
             l.AddLine("Simulated Annealing");
             l.AddLine("Temperature: " + 100);
             l.AddLine("Cooling rate: " + 0.95f);
             l.AddLine("Neighbor functie: "+1);
+            l.AddLine("Deliverymen: " + 4);
 
 
             Console.WriteLine("----------------");
@@ -29,7 +30,7 @@ namespace Pizza
             l.AddLine(initcost);
             for(int i = 0; i<aantal;i++)
             {
-                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 1);
+                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f,  1);
 
                 Solution result_solution = sa.run();
                 // Present results  
