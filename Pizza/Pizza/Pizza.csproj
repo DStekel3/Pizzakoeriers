@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Console.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="Heuristic.cs" />
     <Compile Include="IterativeImprovement.cs" />
     <Compile Include="Deliveryman.cs" />
     <Compile Include="Display.cs">

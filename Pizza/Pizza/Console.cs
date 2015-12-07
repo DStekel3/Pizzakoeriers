@@ -15,7 +15,7 @@ namespace Pizza
             Solution initial_solution = init.getSolution(1);
             while (true)
             {                
-                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 2);
+                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 1);
                 Solution result_solution = sa.run();
 
                 // Present results

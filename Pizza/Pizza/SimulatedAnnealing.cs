@@ -76,26 +76,4 @@ namespace Pizza
             return s;
         }
     }
-    /*
-    class SimulatedAnnealing
-    {
-        Solution s;
-        
-        public SimulatedAnnealing(Solution sol)
-        {
-            s = sol;
-
-            foreach(Deliveryman d in s.rs)
-            {
-                VerbeterPad(d);
-            }
-        }
-
-        private void VerbeterPad(Deliveryman d)
-        {
-            
-               
-        }
-    }
-    */
 }
