@@ -12,7 +12,7 @@ namespace Pizza
         {
             Input p = new Input(20, true);
             InitialPath init = new InitialPath(p);
-            Solution initial_solution = init.getSolution(1);
+            Solution initial_solution = init.getSolution(1, 4);
             while (true)
             {                
                 SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f, 0, 1);
