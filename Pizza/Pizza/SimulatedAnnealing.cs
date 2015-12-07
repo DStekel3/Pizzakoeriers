@@ -10,14 +10,13 @@ namespace Pizza
     {
         Solution s;
         float t, a;
-        int h, g;
+        int g;
         Random rnd;
-        public SimulatedAnnealing(Solution sol, float temperature, float cooling_rate, int heuristic_function, int neighbor_function)
+        public SimulatedAnnealing(Solution sol, float temperature, float cooling_rate, int neighbor_function)
         {
             s = sol;
             t = temperature;
             a = cooling_rate;
-            h = heuristic_function;
             g = neighbor_function;
             rnd = new Random();
         }
@@ -30,7 +29,7 @@ namespace Pizza
             int accepted_w = 0;
             while (t > 0.1)
             {
-                float s_h = s.Heuristic(h);
+                float s_h = s.costs();
                 int iteraties = 0;
                 Console.WriteLine("Temperature: " + t.ToString() + " costs: " + s_h.ToString());
 
@@ -39,7 +38,7 @@ namespace Pizza
                 {
                     Solution next = s.NextNeighbor(g);
                     states++;
-                    float next_h = next.Heuristic(h);
+                    float next_h = next.costs();
                     iteraties++;
                     if (next_h <= s_h)
                     {
@@ -71,7 +70,7 @@ namespace Pizza
                     t = a * t;
                 }
             }
-            s.Untwine(); 
+            //s.Untwine(); 
             Console.WriteLine("states generated: " + states + " accepted better: " + accepted_b + " accepted worse: " + accepted_w);
             return s;
         }

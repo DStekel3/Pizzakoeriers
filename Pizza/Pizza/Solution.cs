@@ -7,61 +7,63 @@ using System.Windows.Forms;
 
 namespace Pizza
 {
-  public class Solution
-  {
-    public int n;
-    public Customer[] cs;
-    public Deliveryman[] rs;
-    Random rnd;
-    Heuristic h;
-
-    public Solution(Customer[] customers, Deliveryman[] d)
+    public class Solution
     {
-      // customers, or 'map' of the problem            
-      cs = customers;
-      // representation of the routes, by customer id's
-      rs = d;
-      // number of deliverymen
-      n = d.Length;
-      // rnd
-      rnd = new Random();
-      h = new Heuristic();
-    }
+        public int n;
+        public Customer[] cs;
+        public Deliveryman[] rs;
+        Random rnd;
 
-    public int Heuristic(int h)
-    {
-      // Heuristic value
-      int heuristic = 0;
-
-      // --- Heuristics ---
-      // Heuristic 1:
-      if (h == 0)
-      {
-        heuristic = costs();
-        /*
-        for (int i = 0; i < n; i++)
+        public Solution(Customer[] customers, Deliveryman[] d)
         {
-            // number of customers on the route
-            int nodes = rs[i].Length;
-            // total distance of the route
-            int dist = 0;
-            int jump = nodes / 4;
-
-            for (int node = 0; node < nodes; node += jump)
-            {
-
-            }
+            // customers, or 'map' of the problem            
+            cs = customers;
+            // representation of the routes, by customer id's
+            rs = d;
+            // number of deliverymen
+            n = d.Length;
+            // rnd
+            rnd = new Random();
         }
-        */
-      }
 
-      return heuristic;
-    }
+        public int costs()
+        {
+            // returns the actual costs of the solution
+            int total_time = 0;
+            for (int i = 0; i < n; i++)
+            {
+                // number of customers on the route
+                int nodes = rs[i].route.Count;
+                // total distance of the route
+                int dist = 0;
+                // customer id's and pos
+                int id_a = 0;
+                int x_a = 0;
+                int y_a = 0;
+                int id_b, x_b, y_b;
 
-    public int costs()
-    {
-      return h.TakeAndRun(this);
-    }
+                for (int j = 0; j < nodes; j++)
+                {
+                    // get node id
+                    id_b = rs[i].route[j];
+                    // get node position
+                    x_b = cs[id_b - 1].X;
+                    y_b = cs[id_b - 1].Y;
+                    // calculate distance between node a and b
+                    dist += Math.Abs(x_a - x_b) + Math.Abs(y_a - y_b);
+                    total_time += dist;
+                    // a = b
+                    id_a = id_b;
+                    x_a = x_b;
+                    y_a = y_b;
+                }
+                // back to depot
+                //dist += Math.Abs(x_a - 0) + Math.Abs(y_a - 0);
+            }
+            // calculate average delivery duration per route
+            return total_time;
+        }
+    
 
         public Solution NextNeighbor(int g)
         {
