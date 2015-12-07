@@ -16,29 +16,31 @@ namespace Pizza
 
     public InitialPath(Input i)
     {
-        cs = i.customers;
-        visited = new bool[cs.Length];
+      cs = i.customers;
+      visited = new bool[cs.Length];
     }
 
-    public Solution getSolution(int mode)
+    public Solution getSolution(int mode, int amount_of_deliverymen)
     {
-            if (mode == 0)
-                return EqualNeighbour(cs, 2);
-            else
-                return RandomMultiple(cs, 1);
-        }
+      if (mode == 0)
+        return EqualNeighbour(cs, amount_of_deliverymen);
+      else if (mode == 1)
+        return RandomMultiple(cs, amount_of_deliverymen);
+      else
+        return NearestNeighbour(cs, amount_of_deliverymen);
+    }
 
     public Solution NearestNeighbour(Customer[] customers, int deliverers)
     {
       Deliveryman[] d = new Deliveryman[deliverers];
-      for(int t =0;t<d.Length;t++)
+      for (int t = 0; t < d.Length; t++)
       {
         d[t] = new Deliveryman();
       }
 
       Point cur_pos = new Point(0, 0);
 
-      for (int x = 0; x < customers.Length/ deliverers; x++)
+      for (int x = 0; x < customers.Length / deliverers; x++)
       {
         int nearest_neighbour = -1;
         int best_dist = int.MaxValue;
@@ -89,7 +91,7 @@ namespace Pizza
           { laziest = score; l = d; }
         }
 
-        for(int t = 0; t < ds.Length; t++)
+        for (int t = 0; t < ds.Length; t++)
         {
           if (ds[t] == l)
             ds[t].route.Add(customers[x].ID);
@@ -99,7 +101,7 @@ namespace Pizza
       return new Solution(customers, ds);
     }
 
-    
+
     public Solution RandomMultiple(Customer[] customers, int amount)
     {
       Deliveryman[] work = new Deliveryman[amount];
@@ -110,22 +112,16 @@ namespace Pizza
       else
         path_length = customers.Length / amount + 1;
 
-      for(int t =0;t<work.Length;t++)
+      for (int t = 0; t < work.Length; t++)
       {
         work[t] = new Deliveryman();
       }
 
-      int cur = 0;
-      int pos = 0;
+      Random r = new Random();
       for (int t = 0; t < customers.Length; t++)
       {
-        work[cur].route.Add(customers[t].ID);
-        cur++;
-        if (cur >= amount)
-        {
-          cur = 0;
-          pos++;
-        }
+        int x = r.Next(0, work.Length);
+        work[x].route.Add(customers[t].ID);
       }
 
       return new Solution(customers, work);
