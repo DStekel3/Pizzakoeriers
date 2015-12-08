@@ -32,7 +32,7 @@ namespace Pizza
             {
                 float s_h = s.costs();
                 int iteraties = 0;
-                Console.WriteLine("Temperature: " + t.ToString() + " costs: " + s_h.ToString());
+                //Console.WriteLine("Temperature: " + t.ToString() + " costs: " + s_h.ToString());
 
                 bool accept = false;
                 while (!accept && iteraties < 10)
