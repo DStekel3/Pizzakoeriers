@@ -8,39 +8,48 @@ using System.Windows.Forms;
 
 namespace Pizza
 {
-    class Logger
-    {
-        string[] str;
-        int n;
-        public Logger(int g)
-        {
-            str = new string[g + 1];
-            n = 0;
-        }     
-        
-        public void AddLine(string s)
-        {
-            str[n] = s;
-            n++;
-        } 
+  class Logger
+  {
+	string[] str;
+	int n;
+	public Logger(int g)
+	{
+	  str = new string[g + 1];
+	  n = 0;
+	}
 
-        public void Write()
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.CreatePrompt = true;
-            sfd.OverwritePrompt = true;
-            sfd.FileName = "log";
-            sfd.DefaultExt = "txt";
-            sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+	public void AddLine(string s)
+	{
+	  str[n] = s;
+	  n++;
+	}
 
-            DialogResult dr = sfd.ShowDialog();
+	public void Write(string mapLoc, int i)
+	{
+	  /*SaveFileDialog sfd = new SaveFileDialog();
+	  sfd.CreatePrompt = true;
+	  sfd.OverwritePrompt = true;
+	  sfd.FileName = "log";
+	  sfd.DefaultExt = "txt";
+	  sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
 
-            if (dr == DialogResult.OK)
-            {
-                File.WriteAllLines(sfd.FileName, str);
-            }
+	  DialogResult dr = sfd.ShowDialog();
 
-        }
+	  if (dr == DialogResult.OK)
+	  {
+		  File.WriteAllLines(sfd.FileName, str);
+	  }
+	  */
+	  string name = "Results";
+	  string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+	  if (!(System.IO.Directory.Exists(mapLoc + @"\" + name)))
+	  {
+		System.IO.Directory.CreateDirectory(mapLoc + @"\" + name);
+	  }
 
-    }
+	  File.WriteAllLines(mapLoc + @"\" + name+@"\"+i.ToString()+".txt", str);
+
+	}
+
+  }
 }
