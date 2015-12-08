@@ -42,7 +42,7 @@ namespace Pizza
                     int y = r.Next(-1000, 1000);
                     customers[cnr-1] = new Customer(x, y, cnr);
                     cnr++;
-                    System.Console.WriteLine("Customer " + cnr + ": X pos " + x + " , y pos " + y + " cluster: 1");
+                    //System.Console.WriteLine("Customer " + cnr + ": X pos " + x + " , y pos " + y + " cluster: 1");
                 }
             
 

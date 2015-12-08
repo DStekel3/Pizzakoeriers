@@ -13,9 +13,9 @@ namespace Pizza
 	int initial_mode = 0;
 	int deliverymen = 10;
 	int customers = 500;
-	int neighbour_mode = 1;
-	int temp = 500000;
-	float cool_rate = 0.9f;
+	int neighbour_mode = 2;
+	int temp = 500;
+	float cool_rate = 0.99f;
 	int aantal = 5;
 	int iterations = 1000;
 

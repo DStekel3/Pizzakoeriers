@@ -134,27 +134,29 @@ namespace Pizza
                 int route_a = rnd.Next(0, rx.Length);
                 int route_b = rnd.Next(0, rx.Length);
 
-                // select random node from route a
-                int index = rnd.Next(0, rx[route_a].route.Count - 1);
-                int node_a = rx[route_a].route.ElementAt(index);
-
-                // select node from route b that is closest to node a
-                int closest_node = 0;
-                int closest_value = int.MaxValue;
-                foreach (int node in rx[route_b].route)
+                if (rx[route_a].route.Count > 0 && rx[route_b].route.Count > 0)
                 {
-                    int dist = (Math.Abs(cs[node_a - 1].X - cs[node - 1].X) + Math.Abs(cs[node_a - 1].Y - cs[node - 1].Y));
-                    if (closest_value > dist && node != node_a)
+                    // select random node from route a
+                    int index = rnd.Next(0, rx[route_a].route.Count - 1);
+                    int node_a = rx[route_a].route.ElementAt(index);
+
+                    // select node from route b that is closest to node a
+                    int closest_node = 0;
+                    int closest_value = int.MaxValue;
+                    foreach (int node in rx[route_b].route)
                     {
-                        closest_node = node;
-                        closest_value = dist;
+                        int dist = (Math.Abs(cs[node_a - 1].X - cs[node - 1].X) + Math.Abs(cs[node_a - 1].Y - cs[node - 1].Y));
+                        if (closest_value > dist && node != node_a)
+                        {
+                            closest_node = node;
+                            closest_value = dist;
+                        }
                     }
+
+                    // add this node to route a
+                    rx[route_a].route.Insert(index, closest_node);
+                    rx[route_b].route.Remove(closest_node);
                 }
-
-                // add this node to route a
-                rx[route_a].route.Insert(index, closest_node);
-                rx[route_b].route.Remove(closest_node);
-
                 // return solution
                 return new Solution(cs, rx);
             }
