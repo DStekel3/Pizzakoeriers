@@ -30,7 +30,7 @@ namespace Pizza
             l.AddLine(initcost);
             for(int i = 0; i<aantal;i++)
             {
-                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f,  1);
+                SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, 100, 0.95f,  2);
 
                 Solution result_solution = sa.run();
                 // Present results  
