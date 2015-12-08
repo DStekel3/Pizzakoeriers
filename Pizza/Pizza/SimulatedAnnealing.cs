@@ -72,7 +72,7 @@ namespace Pizza
                 }
             }
             //s.Untwine(); 
-            Console.WriteLine("states generated: " + states + " accepted better: " + accepted_b + " accepted worse: " + accepted_w);
+            //Console.WriteLine("states generated: " + states + " accepted better: " + accepted_b + " accepted worse: " + accepted_w);
             return s;
         }
     }
