@@ -11,19 +11,19 @@ namespace Pizza
   {
 	// set variables:
 	int initial_mode = 0;
-	int deliverymen = 10;
-	int customers = 500;
-	int neighbour_mode = 1;
-	int temp = 500000;
-	float cool_rate = 0.9f;
-	int aantal = 5;
+	int deliverymen = 4;
+	int customers = 50;
+	int neighbour_mode = 0;
+	int temp = 100;
+	float cool_rate = 0.99f;
+	int aantal = 4;
 	int iterations = 1000;
 
 	public My_Console()
 	{
 
 	  //InputTests();
-	  Logger l = new Logger(2*aantal + 10);
+	  Logger l = new Logger(4*aantal + 10);
 	  Input p = new Input(customers, true);
 	  InitialPath init = new InitialPath(p);
 	  Solution initial_solution = init.getSolution(initial_mode, deliverymen);
