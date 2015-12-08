@@ -1,8 +1,0 @@
-Iterative 0 5 50 2 100
-Iterative 0 5 100 2 100
-Iterative 0 10 50 2 100
-Iterative 0 10 100 2 100
-Iterative 1 5 50 2 100
-Iterative 1 5 100 2 100
-Iterative 1 10 50 2 100
-Iterative 1 10 100 2 100

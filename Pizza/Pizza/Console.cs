@@ -11,6 +11,9 @@ namespace Pizza
 {
   class My_Console
   {
+	long[] gemiddeld_costs;
+	double[] gemiddeld_tijd;
+
 	public My_Console()
 	{
 	  InputTests(); // Testing...
@@ -34,8 +37,11 @@ namespace Pizza
 	  string path = sfd.FileName;
 	  string name = Path.GetFileNameWithoutExtension(path);
 	  string[] lines = System.IO.File.ReadAllLines(path);
-	  int test_lines = 0;
+	  
 	  int i = 1;
+	  gemiddeld_costs = new long[lines.Length];
+	  gemiddeld_tijd = new double[lines.Length];
+
 	  foreach (string line in lines)
 	  {
 		if (line != "")
@@ -46,6 +52,17 @@ namespace Pizza
 		  i++;
 		}
 	  }
+	  Logger l = new Logger(2*gemiddeld_tijd.Length+3);
+	  l.AddLine("Gemiddelde costs:");
+	  foreach(long d in gemiddeld_costs)
+	  {
+		l.AddLine(d.ToString());
+	  }
+	  l.AddLine("");
+	  l.AddLine("Gemiddelde tijd: ");
+	  foreach (double d in gemiddeld_tijd)
+		l.AddLine(d.ToString());
+	  l.Write(path, name);
 	}
 
 	private void RunTest(Test t, string path, string name, int nr, int total)
@@ -123,6 +140,8 @@ namespace Pizza
 	  l.AddLine((gemiddelde / aantal).ToString());
 	  l.AddLine("Gemiddelde tijd: ");
 	  l.AddLine((tijd / aantal).ToString());
+	  gemiddeld_costs[nr - 1] = (long)gemiddelde / aantal;
+	  gemiddeld_tijd[nr - 1] = tijd / aantal;
 
 	  // Locatie waar tests-map wordt aangemaakt en tests als txt.bestand genummerd worden opgeslagen
 	  l.Write(path, name, nr);
