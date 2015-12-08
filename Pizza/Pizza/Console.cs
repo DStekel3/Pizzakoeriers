@@ -11,6 +11,7 @@ namespace Pizza
 {
   class My_Console
   {
+	long[] initial_costs;
 	long[] gemiddeld_costs;
 	double[] gemiddeld_tijd;
 
@@ -41,6 +42,7 @@ namespace Pizza
 	  int i = 1;
 	  gemiddeld_costs = new long[lines.Length];
 	  gemiddeld_tijd = new double[lines.Length];
+	  initial_costs = new long[lines.Length];
 
 	  foreach (string line in lines)
 	  {
@@ -52,7 +54,13 @@ namespace Pizza
 		  i++;
 		}
 	  }
-	  Logger l = new Logger(2*gemiddeld_tijd.Length+3);
+	  Logger l = new Logger(3*gemiddeld_tijd.Length+5);
+	  l.AddLine("Initial-costs:");
+	  foreach(long d in initial_costs)
+      {
+		l.AddLine(d.ToString());
+	  }
+	  l.AddLine("");
 	  l.AddLine("Gemiddelde costs:");
 	  foreach(long d in gemiddeld_costs)
 	  {
@@ -72,7 +80,9 @@ namespace Pizza
 	  Input p = new Input(t.custom, true);
 	  InitialPath init = new InitialPath(p);
 	  Solution initial_solution = init.getSolution(t.initial, t.delivery);
-	  string initcost = "init solution: " + initial_solution.costs();
+	  long init_costs = initial_solution.costs();
+      string initcost = "init solution: " + init_costs;
+	  initial_costs[nr - 1] = init_costs;
 	  l.AddLine(initcost);
 	  l.AddLine("");
 	  Stopwatch s = new Stopwatch();
