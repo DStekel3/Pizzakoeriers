@@ -26,10 +26,10 @@ namespace Pizza
             rnd = new Random();
         }
 
-        public int costs()
+        public long costs()
         {
             // returns the actual costs of the solution
-            int total_time = 0;
+            long total_time = 0;
             for (int i = 0; i < n; i++)
             {
                 // number of customers on the route

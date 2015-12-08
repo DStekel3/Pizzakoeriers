@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Pizza
 {
@@ -35,13 +36,13 @@ namespace Pizza
 	  // Read each line of the file into a string array. Each element
 	  // of the array is one line of the file.
 	  OpenFileDialog sfd = new OpenFileDialog();
-	  
-	  sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+	  string s = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+	  sfd.InitialDirectory = s;
+      sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
 
 	  DialogResult dr = sfd.ShowDialog();
-	  string path = "";
-	  path= sfd.FileName;
-	  
+	  string path= sfd.FileName;
+	  string name = Path.GetFileNameWithoutExtension(path);
 	  string[] lines = System.IO.File.ReadAllLines(path);
 	  int test_lines = 0;
 	  int i = 1;
@@ -51,17 +52,17 @@ namespace Pizza
 		{
 		  // Use a tab to indent each line of the file.
 		  Test t = new Test(line);
-		  RunTest(t, i);
+		  RunTest(t, path, name, i);
 		  i++;
 		}
 	  }
 	}
 
-	private void RunTest(Test t, int nr)
+	private void RunTest(Test t, string path, string name, int nr)
 	{
 	  int aantal = 30;
 	  Logger l = new Logger(2 * aantal + 16);
-	  Input p = new Input(customers, true);
+	  Input p = new Input(t.custom, true);
 	  InitialPath init = new InitialPath(p);
 	  Solution initial_solution = init.getSolution(t.initial, t.delivery);
 	  string initcost = "init solution: " + initial_solution.costs();
@@ -86,7 +87,7 @@ namespace Pizza
 		  Solution result_solution = sa.LocalSearch();
 		  s.Stop();
 		  // Present results  
-		  int costs = result_solution.costs();
+		  long costs = result_solution.costs();
 		  string rescost = costs.ToString();
 		  Console.WriteLine(rescost);
 		  gemiddelde += costs;
@@ -114,7 +115,7 @@ namespace Pizza
 		  Solution result_solution = sa.run();
 		  s.Stop();
 		  // Present results  
-		  int costs = result_solution.costs();
+		  long costs = result_solution.costs();
 		  string rescost = costs.ToString();
 		  Console.WriteLine(rescost);
 		  gemiddelde += costs;
@@ -129,7 +130,7 @@ namespace Pizza
 	  l.AddLine((gemiddelde / aantal).ToString());
 
 	  // Locatie waar tests-map wordt aangemaakt en tests als txt.bestand genummerd worden opgeslagen
-	  l.Write(@"C:\Users\Daniël\Desktop", nr);
+	  l.Write(path, name, nr);
 	}
   }
 }

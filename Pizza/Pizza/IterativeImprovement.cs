@@ -9,7 +9,7 @@ namespace Pizza
     class IterativeImprovement
     {
         int iterations = 10; //Amount of neighbouring solutions to look at
-        int cost_opt, cost_cur;
+        long cost_opt, cost_cur;
         Solution s;
         
         public IterativeImprovement(Solution initial_solution, int iter)

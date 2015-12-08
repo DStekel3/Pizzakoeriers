@@ -24,33 +24,15 @@ namespace Pizza
 	  n++;
 	}
 
-	public void Write(string mapLoc, int i)
+	public void Write(string mapLoc, string name, int i)
 	{
-	  /*SaveFileDialog sfd = new SaveFileDialog();
-	  sfd.CreatePrompt = true;
-	  sfd.OverwritePrompt = true;
-	  sfd.FileName = "log";
-	  sfd.DefaultExt = "txt";
-	  sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-
-	  DialogResult dr = sfd.ShowDialog();
-
-	  if (dr == DialogResult.OK)
-	  {
-		  File.WriteAllLines(sfd.FileName, str);
-	  }
-	  */
-	  string name = "Results";
-	  string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-	  string path = mapLoc + @"\" + name;
+	  string path = Path.GetDirectoryName(mapLoc) + @"\" + name;
       if (!(System.IO.Directory.Exists(path)))
 	  {
 		System.IO.Directory.CreateDirectory(path);
 	  }
 
 	  File.WriteAllLines(path+@"\"+i.ToString()+".txt", str);
-
 	}
-
   }
 }
