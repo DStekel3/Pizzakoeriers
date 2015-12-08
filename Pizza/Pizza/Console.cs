@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Pizza
 {
@@ -21,68 +22,7 @@ namespace Pizza
 
 	public My_Console()
 	{
-
-	  InputTests();
-	  /*
-	  Logger l = new Logger(2*aantal + 13);
-	  Input p = new Input(customers, true);
-	  InitialPath init = new InitialPath(p);
-	  Solution initial_solution = init.getSolution(initial_mode, deliverymen);
-
-	  l.AddLine("Simulated Annealing");
-	  l.AddLine("Temperature: " + temp);
-	  l.AddLine("Cooling rate: " + cool_rate);
-	  l.AddLine("Neighbor mode: " + neighbour_mode);
-	  l.AddLine("Deliverymen: " + deliverymen);
-	  l.AddLine("Customers: " + customers);
-	  l.AddLine("Initial mode: " + initial_mode);
-	  l.AddLine("Aantal tests: " + aantal);
-
-	  Console.WriteLine("----------------");
-	  string initcost = "init solution: " + initial_solution.costs();
-	  Console.WriteLine("----------------");
-	  Console.WriteLine(initcost);
-
-	  l.AddLine(initcost);
-	  l.AddLine("");
-	  Stopwatch s = new Stopwatch();
-	  l.AddLine("Iterative Improvement:");
-	  for (int i = 0; i < aantal; i++)
-	  {
-		s.Start();
-		//SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, temp, cool_rate,  neighbour_mode);
-		IterativeImprovement sa = new IterativeImprovement(initial_solution, iterations);
-		Solution result_solution = sa.LocalSearch();
-		s.Stop();
-
-		// Present results 
-		string rescost = result_solution.costs().ToString();
-		Console.WriteLine(rescost);
-		Console.WriteLine($"{i+1}/{aantal}");
-		l.AddLine($"{rescost}, tijd: {s.ElapsedMilliseconds}");
-		Console.WriteLine(s.ElapsedMilliseconds);
-		s.Reset();
-	  }
-	  l.AddLine("");
-	  l.AddLine("Simulated Annealing: ");
-	  for (int i = 0; i < aantal; i++)
-	  {
-		s.Start();
-		SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, temp, cool_rate, neighbour_mode);
-		Solution result_solution = sa.run();
-		s.Stop();
-		// Present results  
-
-		string rescost = result_solution.costs().ToString();
-		Console.WriteLine(rescost);
-		l.AddLine($"{rescost}, tijd: {s.ElapsedMilliseconds}");
-		Console.WriteLine($"{i+1}/{aantal}");
-		Console.WriteLine(s.ElapsedMilliseconds);
-		s.Reset();
-	  }
-	  Console.WriteLine("Done.");
-	  l.Write();
-	  */
+	  InputTests(); // Testing...
 	}
 
 	private void InputTests()
@@ -94,7 +34,15 @@ namespace Pizza
 	  // Example #2
 	  // Read each line of the file into a string array. Each element
 	  // of the array is one line of the file.
-	  string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Daniël\Desktop\tests.txt");
+	  OpenFileDialog sfd = new OpenFileDialog();
+	  
+	  sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+
+	  DialogResult dr = sfd.ShowDialog();
+	  string path = "";
+	  path= sfd.FileName;
+	  
+	  string[] lines = System.IO.File.ReadAllLines(path);
 	  int test_lines = 0;
 	  int i = 1;
 	  foreach (string line in lines)
@@ -167,7 +115,7 @@ namespace Pizza
 		  s.Stop();
 		  // Present results  
 		  int costs = result_solution.costs();
-          string rescost = costs.ToString();
+		  string rescost = costs.ToString();
 		  Console.WriteLine(rescost);
 		  gemiddelde += costs;
 		  l.AddLine($"{rescost}");//, tijd: {s.ElapsedMilliseconds}");

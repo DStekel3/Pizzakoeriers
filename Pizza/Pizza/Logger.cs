@@ -42,12 +42,13 @@ namespace Pizza
 	  */
 	  string name = "Results";
 	  string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-	  if (!(System.IO.Directory.Exists(mapLoc + @"\" + name)))
+	  string path = mapLoc + @"\" + name;
+      if (!(System.IO.Directory.Exists(path)))
 	  {
-		System.IO.Directory.CreateDirectory(mapLoc + @"\" + name);
+		System.IO.Directory.CreateDirectory(path);
 	  }
 
-	  File.WriteAllLines(mapLoc + @"\" + name+@"\"+i.ToString()+".txt", str);
+	  File.WriteAllLines(path+@"\"+i.ToString()+".txt", str);
 
 	}
 
