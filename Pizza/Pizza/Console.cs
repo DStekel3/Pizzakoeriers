@@ -51,7 +51,7 @@ namespace Pizza
 	private void RunTest(Test t, string path, string name, int nr, int total)
 	{
 	  int aantal = 30;
-	  Logger l = new Logger(2 * aantal + 16);
+	  Logger l = new Logger(2 * aantal + 18);
 	  Input p = new Input(t.custom, true);
 	  InitialPath init = new InitialPath(p);
 	  Solution initial_solution = init.getSolution(t.initial, t.delivery);
@@ -60,6 +60,7 @@ namespace Pizza
 	  l.AddLine("");
 	  Stopwatch s = new Stopwatch();
 	  var gemiddelde = 0.0;
+	  var tijd = 0.0;
 
 	  if (t.method == 0)
 	  {
@@ -82,6 +83,7 @@ namespace Pizza
 		  //Console.WriteLine(rescost);
 		  gemiddelde += costs;
 		  Console.WriteLine($"Test {nr}/{total}: {i + 1}/{aantal}");
+		  tijd += s.ElapsedMilliseconds;
 		  l.AddLine($"{rescost}");//, tijd: {s.ElapsedMilliseconds}");
 								  //Console.WriteLine(s.ElapsedMilliseconds);
 		  s.Reset();
@@ -107,17 +109,20 @@ namespace Pizza
 		  // Present results  
 		  long costs = result_solution.costs();
 		  string rescost = costs.ToString();
-		  Console.WriteLine(rescost);
+		  //Console.WriteLine(rescost);
 		  gemiddelde += costs;
+		  tijd += s.ElapsedMilliseconds;
 		  l.AddLine($"{rescost}");//, tijd: {s.ElapsedMilliseconds}");
-		  Console.WriteLine($"{i + 1}/{aantal}");
-		  Console.WriteLine(s.ElapsedMilliseconds);
+		  Console.WriteLine($"Test {nr}/{total}: {i + 1}/{aantal}");
+		  //Console.WriteLine(s.ElapsedMilliseconds);
 		  s.Reset();
 		}
 	  }
 	  l.AddLine("");
 	  l.AddLine($"Gemiddelde costs: ");
 	  l.AddLine((gemiddelde / aantal).ToString());
+	  l.AddLine("Gemiddelde tijd: ");
+	  l.AddLine((tijd / aantal).ToString());
 
 	  // Locatie waar tests-map wordt aangemaakt en tests als txt.bestand genummerd worden opgeslagen
 	  l.Write(path, name, nr);
