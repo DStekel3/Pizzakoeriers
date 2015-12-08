@@ -11,16 +11,6 @@ namespace Pizza
 {
   class My_Console
   {
-	// set variables:
-	int initial_mode = 0;
-	int deliverymen = 10;
-	int customers = 500;
-	int neighbour_mode = 2;
-	int temp = 100;
-	float cool_rate = 0.99f;
-	int aantal = 5;
-	int iterations = 1000;
-
 	public My_Console()
 	{
 	  InputTests(); // Testing...
@@ -38,10 +28,10 @@ namespace Pizza
 	  OpenFileDialog sfd = new OpenFileDialog();
 	  string s = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
 	  sfd.InitialDirectory = s;
-      sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+	  sfd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
 
 	  DialogResult dr = sfd.ShowDialog();
-	  string path= sfd.FileName;
+	  string path = sfd.FileName;
 	  string name = Path.GetFileNameWithoutExtension(path);
 	  string[] lines = System.IO.File.ReadAllLines(path);
 	  int test_lines = 0;
@@ -52,13 +42,13 @@ namespace Pizza
 		{
 		  // Use a tab to indent each line of the file.
 		  Test t = new Test(line);
-		  RunTest(t, path, name, i);
+		  RunTest(t, path, name, i, lines.Length);
 		  i++;
 		}
 	  }
 	}
 
-	private void RunTest(Test t, string path, string name, int nr)
+	private void RunTest(Test t, string path, string name, int nr, int total)
 	{
 	  int aantal = 30;
 	  Logger l = new Logger(2 * aantal + 16);
@@ -89,11 +79,11 @@ namespace Pizza
 		  // Present results  
 		  long costs = result_solution.costs();
 		  string rescost = costs.ToString();
-		  Console.WriteLine(rescost);
+		  //Console.WriteLine(rescost);
 		  gemiddelde += costs;
-		  Console.WriteLine($"{i + 1}/{aantal}");
+		  Console.WriteLine($"Test {nr}/{total}: {i + 1}/{aantal}");
 		  l.AddLine($"{rescost}");//, tijd: {s.ElapsedMilliseconds}");
-		  Console.WriteLine(s.ElapsedMilliseconds);
+								  //Console.WriteLine(s.ElapsedMilliseconds);
 		  s.Reset();
 		}
 	  }
