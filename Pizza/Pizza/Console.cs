@@ -14,6 +14,10 @@ namespace Pizza
 	long[] initial_costs;
 	long[] gemiddeld_costs;
 	double[] gemiddeld_tijd;
+	int[] N;
+	int[] M;
+	double[] cool;
+	int[] tem;
 
 	public My_Console()
 	{
@@ -43,6 +47,10 @@ namespace Pizza
 	  gemiddeld_costs = new long[lines.Length];
 	  gemiddeld_tijd = new double[lines.Length];
 	  initial_costs = new long[lines.Length];
+	  N = new int[lines.Length];
+	  M = new int[lines.Length];
+	  cool = new double[lines.Length];
+	  tem = new int[lines.Length];
 
 	  foreach (string line in lines)
 	  {
@@ -54,7 +62,7 @@ namespace Pizza
 		  i++;
 		}
 	  }
-	  Logger l = new Logger(3*gemiddeld_tijd.Length+5);
+	  Logger l = new Logger(7*gemiddeld_tijd.Length+13);
 	  l.AddLine("Initial-costs:");
 	  foreach(long d in initial_costs)
       {
@@ -70,6 +78,27 @@ namespace Pizza
 	  l.AddLine("Gemiddelde tijd: ");
 	  foreach (double d in gemiddeld_tijd)
 		l.AddLine(d.ToString());
+
+	  l.AddLine("");
+	  l.AddLine("N: ");
+	  foreach (int n in N)
+		l.AddLine(n.ToString());
+
+	  l.AddLine("");
+	  l.AddLine("M: ");
+        foreach (int m in M)
+		l.AddLine(m.ToString());
+
+	  l.AddLine("");
+	  l.AddLine("Cool-rate: ");
+	  foreach (double m in cool)
+		l.AddLine(m.ToString());
+
+	  l.AddLine("");
+	  l.AddLine("Temperature: ");
+	  foreach (int m in tem)
+		l.AddLine(m.ToString());
+
 	  l.Write(path, name);
 	}
 
@@ -77,13 +106,15 @@ namespace Pizza
 	{
 	  int aantal = 30;
 	  Logger l = new Logger(2 * aantal + 18);
-	  Input p = new Input(t.custom, true);
-	  InitialPath init = new InitialPath(p);
-	  Solution initial_solution = init.getSolution(t.initial, t.delivery);
-	  long init_costs = initial_solution.costs();
-      string initcost = "init solution: " + init_costs;
-	  initial_costs[nr - 1] = init_costs;
-	  l.AddLine(initcost);
+	  
+	  N[nr - 1] = t.custom;
+	  M[nr - 1] = t.neigh;
+	  if (t.method == 0)
+	  { cool[nr - 1] = -1; tem[nr - 1] = -1; }
+	  else
+	  { cool[nr - 1] = t.cool; tem[nr - 1] = t.temp; }
+
+	  
 	  l.AddLine("");
 	  Stopwatch s = new Stopwatch();
 	  var gemiddelde = 0.0;
@@ -98,8 +129,17 @@ namespace Pizza
 		l.AddLine("Customers: " + t.custom);
 		l.AddLine("Iterations: " + t.iterations);
 		l.AddLine("Aantal tests: " + aantal);
+
+		long init_gem = 0;
 		for (int i = 0; i < aantal; i++)
 		{
+		  Input p = new Input(t.custom, true);
+		  InitialPath init = new InitialPath(p);
+		  Solution initial_solution = init.getSolution(t.initial, t.delivery);
+		  long init_costs = initial_solution.costs();
+		  init_gem += init_costs;
+		  
+
 		  s.Start();
 		  IterativeImprovement sa = new IterativeImprovement(initial_solution, t.iterations);
 		  Solution result_solution = sa.LocalSearch();
@@ -115,6 +155,8 @@ namespace Pizza
 								  //Console.WriteLine(s.ElapsedMilliseconds);
 		  s.Reset();
 		}
+
+		initial_costs[nr - 1] = init_gem /aantal; 
 	  }
 	  else if (t.method == 1)
 	  {
@@ -127,8 +169,15 @@ namespace Pizza
 		l.AddLine("Cooling rate: " + t.cool);
 		l.AddLine("Aantal tests: " + aantal);
 
+		long init_gem = 0;
 		for (int i = 0; i < aantal; i++)
 		{
+		  Input p = new Input(t.custom, true);
+		  InitialPath init = new InitialPath(p);
+		  Solution initial_solution = init.getSolution(t.initial, t.delivery);
+		  long init_costs = initial_solution.costs();
+		  init_gem += init_costs;
+
 		  s.Start();
 		  SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, t.temp, t.cool, t.neigh);
 		  Solution result_solution = sa.run();
@@ -144,6 +193,7 @@ namespace Pizza
 		  //Console.WriteLine(s.ElapsedMilliseconds);
 		  s.Reset();
 		}
+		initial_costs[nr - 1] = init_gem / aantal;
 	  }
 	  l.AddLine("");
 	  l.AddLine($"Gemiddelde costs: ");
@@ -152,6 +202,7 @@ namespace Pizza
 	  l.AddLine((tijd / aantal).ToString());
 	  gemiddeld_costs[nr - 1] = (long)gemiddelde / aantal;
 	  gemiddeld_tijd[nr - 1] = tijd / aantal;
+	  l.AddLine("Gemiddeld Initial costs: " + initial_costs[nr - 1]);
 
 	  // Locatie waar tests-map wordt aangemaakt en tests als txt.bestand genummerd worden opgeslagen
 	  l.Write(path, name, nr);
