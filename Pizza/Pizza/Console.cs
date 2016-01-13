@@ -67,10 +67,11 @@ namespace Pizza
                         // if initial tests do not exist, create them
                         int aantaltests = 30;
                         Solution[] inits = new Solution[aantaltests];
+                        Random rnd = new Random();
                         for (int a = 0; a < aantaltests; a++)
                         {
-                            Input p = new Input(t.custom, true);
-                            InitialPath init = new InitialPath(p);
+                            Input p = new Input(t.custom, rnd);
+                            InitialPath init = new InitialPath(p, rnd);
                             inits[a] = init.getSolution(t.initial, t.delivery);
                         }
                         initsolutions.Add(new Tuple<string, string>(t.custom.ToString(), t.delivery.ToString()), inits);

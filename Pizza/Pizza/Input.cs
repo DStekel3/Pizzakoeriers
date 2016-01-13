@@ -9,18 +9,17 @@ namespace Pizza
     public class Input
     {
         public Customer[] customers;
+        public Random r;
         // generates a (random) set of customers used as input
-        public Input(int amount, bool clusters)
+        public Input(int amount, Random rnd)
         {
             customers = new Customer[amount];
-            customers = Generate(amount, clusters);
+            r = rnd;
+            customers = Generate(amount);            
         }
 
-
-        private Customer[] Generate(int amount, bool clustered)
+        private Customer[] Generate(int amount)
         {
-            Random r = new Random();
-            int clusters;
             /*
             if (clustered)
             {
