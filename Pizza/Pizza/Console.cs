@@ -18,8 +18,9 @@ namespace Pizza
 		int[] M;
 		double[] cool;
 		int[] tem;
+        public Dictionary<Tuple<string, string>, Solution[]> initsolutions = new Dictionary<Tuple<string, string>, Solution[]>();
 
-		public My_Console()
+        public My_Console()
 		{
 			InputTests(); // Testing...
 		}
@@ -58,7 +59,25 @@ namespace Pizza
 				{
 					// Use a tab to indent each line of the file.
 					Test t = new Test(line);
-					RunTest(t, path, name, i, lines.Length);
+
+                    // create initial solutions
+                    if (!initsolutions.ContainsKey(new Tuple<string, string>(t.custom.ToString(), t.delivery.ToString())))
+                    {
+                        // blalj
+                        // if initial tests do not exist, create them
+                        int aantaltests = 30;
+                        Solution[] inits = new Solution[aantaltests];
+                        for (int a = 0; a < aantaltests; a++)
+                        {
+                            Input p = new Input(t.custom, true);
+                            InitialPath init = new InitialPath(p);
+                            inits[a] = init.getSolution(t.initial, t.delivery);
+                        }
+                        initsolutions.Add(new Tuple<string, string>(t.custom.ToString(), t.delivery.ToString()), inits);
+                    }
+
+                    // run test
+                    RunTest(t, path, name, i, lines.Length);
 					i++;
 				}
 			}
@@ -106,8 +125,9 @@ namespace Pizza
 		{
 			int aantal = 30;
 			Logger l = new Logger(2 * aantal + 18);
+            Solution[] inits = initsolutions[new Tuple<string, string>(t.custom.ToString(), t.delivery.ToString())];
 
-			N[nr - 1] = t.custom;
+            N[nr - 1] = t.custom;
 			M[nr - 1] = t.delivery;
 			if (t.method == 0)
 			{ cool[nr - 1] = -1; tem[nr - 1] = -1; }
@@ -133,14 +153,16 @@ namespace Pizza
 				long init_gem = 0;
 				for (int i = 0; i < aantal; i++)
 				{
-					Input p = new Input(t.custom, true);
-					InitialPath init = new InitialPath(p);
-					Solution initial_solution = init.getSolution(t.initial, t.delivery);
-					long init_costs = initial_solution.costs();
+                    //Input p = new Input(t.custom, true);
+                    //InitialPath init = new InitialPath(p);
+                    //Solution initial_solution = init.getSolution(t.initial, t.delivery);
+                    
+                    // init solution
+                    Solution initial_solution = inits[i];
+                    long init_costs = initial_solution.costs();
 					init_gem += init_costs;
-
-
-					s.Start();
+                                        
+                    s.Start();
 					IterativeImprovement sa = new IterativeImprovement(initial_solution, t.iterations);
 					Solution result_solution = sa.LocalSearch();
 					s.Stop();
@@ -172,13 +194,16 @@ namespace Pizza
 				long init_gem = 0;
 				for (int i = 0; i < aantal; i++)
 				{
-					Input p = new Input(t.custom, true);
-					InitialPath init = new InitialPath(p);
-					Solution initial_solution = init.getSolution(t.initial, t.delivery);
-					long init_costs = initial_solution.costs();
-					init_gem += init_costs;
+                    //Input p = new Input(t.custom, true);
+                    //InitialPath init = new InitialPath(p);
+                    //Solution initial_solution = init.getSolution(t.initial, t.delivery);
 
-					s.Start();
+                    // init solution
+                    Solution initial_solution = inits[i];
+                    long init_costs = initial_solution.costs();
+                    init_gem += init_costs;
+
+                    s.Start();
 					SimulatedAnnealing sa = new SimulatedAnnealing(initial_solution, t.temp, t.cool, t.neigh);
 					Solution result_solution = sa.run();
 					s.Stop();
