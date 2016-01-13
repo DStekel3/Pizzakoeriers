@@ -23,7 +23,7 @@ namespace Pizza
         {
             for(int x = 0; x < iterations; x++)
             {
-                Solution s_next = s.NextNeighbor(0); //Neighboring state by swapping two customers in route
+                Solution s_next = s.NextNeighbor(2); //Neighboring state by swapping two customers in route
                 cost_cur = s_next.costs(); //Calculate cost of neighboring state
                 if (cost_cur < cost_opt) //If cost of neighboring state is less than current optimal...
                 {
