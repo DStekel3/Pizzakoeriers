@@ -34,5 +34,16 @@ namespace Pizza
 
 	  File.WriteAllLines(path+@"\"+i.ToString()+".txt", str);
 	}
+
+	public void Write(string mapLoc, string name)
+	{
+	  string path = Path.GetDirectoryName(mapLoc) + @"\" + name;
+	  if (!(System.IO.Directory.Exists(path)))
+	  {
+		System.IO.Directory.CreateDirectory(path);
+	  }
+
+	  File.WriteAllLines(path +@"\gemiddeldes.txt", str);
+	}
   }
 }
