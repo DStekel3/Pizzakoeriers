@@ -18,6 +18,7 @@ namespace Pizza
 		int[] M;
 		double[] cool;
 		int[] tem;
+		int nr_II, nr_SA;
         public Dictionary<Tuple<string, string>, Solution[]> initsolutions = new Dictionary<Tuple<string, string>, Solution[]>();
 
 		public My_Console()
@@ -43,15 +44,18 @@ namespace Pizza
 			string path = sfd.FileName;
 			string name = Path.GetFileNameWithoutExtension(path);
 			string[] lines = System.IO.File.ReadAllLines(path);
+			nr_II = int.Parse(lines[0].Split(' ')[0]);
+			nr_SA = int.Parse(lines[0].Split(' ')[1]);
+			lines[0] = "";
 
 			int i = 1;
-			gemiddeld_costs = new long[lines.Length];
-			gemiddeld_tijd = new double[lines.Length];
-			initial_costs = new long[lines.Length];
-			N = new int[lines.Length];
-			M = new int[lines.Length];
-			cool = new double[lines.Length];
-			tem = new int[lines.Length];
+			gemiddeld_costs = new long[lines.Length-1];
+			gemiddeld_tijd = new double[lines.Length-1];
+			initial_costs = new long[lines.Length-1];
+			N = new int[lines.Length-1];
+			M = new int[lines.Length-1];
+			cool = new double[nr_SA];
+			tem = new int[nr_SA];
 
 			foreach (string line in lines)
 			{
@@ -78,26 +82,40 @@ namespace Pizza
                     }
 
                     // run test
-                    RunTest(t, path, name, i, lines.Length);
+                    RunTest(t, path, name, i, lines.Length-1);
 					i++;
 				}
 			}
-			Logger l = new Logger(7 * gemiddeld_tijd.Length + 13);
+			Logger l = new Logger(7 * gemiddeld_tijd.Length + 16);
 			l.AddLine("Initial-costs:");
+			var x = 0;
 			foreach (long d in initial_costs)
 			{
+				if (x == nr_II)
+					l.AddLine("");
 				l.AddLine(d.ToString());
+				x++;
 			}
 			l.AddLine("");
+			x = 0;
 			l.AddLine("Gemiddelde costs:");
 			foreach (long d in gemiddeld_costs)
 			{
+				if (x == nr_II)
+					l.AddLine("");
 				l.AddLine(d.ToString());
+				x++;
 			}
 			l.AddLine("");
+			x = 0;
 			l.AddLine("Gemiddelde tijd: ");
 			foreach (double d in gemiddeld_tijd)
+			{
+				if (x == nr_II)
+					l.AddLine("");
 				l.AddLine(d.ToString());
+				x++;
+			}
 
 			l.AddLine("");
 			l.AddLine("N: ");
@@ -130,10 +148,11 @@ namespace Pizza
 
             N[nr - 1] = t.custom;
 			M[nr - 1] = t.delivery;
-			if (t.method == 0)
-			{ cool[nr - 1] = -1; tem[nr - 1] = -1; }
-			else
-			{ cool[nr - 1] = t.cool; tem[nr - 1] = t.temp; }
+			if(t.method == 1)
+			{
+				cool[nr - 1-nr_II] = t.cool;
+				tem[nr - 1-nr_II] = t.temp;
+			}
 
 
 			l.AddLine("");
