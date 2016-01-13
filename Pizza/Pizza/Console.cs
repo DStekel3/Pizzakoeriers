@@ -46,6 +46,7 @@ namespace Pizza
                     // create initial solutions
                     if (!initsolutions.ContainsKey(new Tuple<string, string>(t.custom.ToString(), t.delivery.ToString())))
                     {
+                        // blalj
                         // if initial tests do not exist, create them
                         int aantaltests = 30;
                         Solution[] inits = new Solution[aantaltests];
