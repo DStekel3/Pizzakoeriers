@@ -20,7 +20,7 @@ namespace Pizza
 		int[] tem;
         public Dictionary<Tuple<string, string>, Solution[]> initsolutions = new Dictionary<Tuple<string, string>, Solution[]>();
 
-        public My_Console()
+		public My_Console()
 		{
 			InputTests(); // Testing...
 		}
