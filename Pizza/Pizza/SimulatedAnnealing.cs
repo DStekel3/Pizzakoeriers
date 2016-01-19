@@ -28,7 +28,11 @@ namespace Pizza
             int states = 0;
             int accepted_b = 0;
             int accepted_w = 0;
-            while (t > 0.1)
+            //double sump = 0;
+            //int nump = 0;
+
+
+            while (t > 0.000001)
             {
                 float s_h = s.costs();
                 int iteraties = 0;
@@ -50,6 +54,10 @@ namespace Pizza
                     else
                     {
                         double p = Math.Exp(-(next_h - s_h) / t);
+
+                       // sump += p;
+                       // nump++;
+
                         //Console.WriteLine("kans op acceptatie: " + p + "d: " + (next_h - s_h).ToString());
                         double r = rnd.NextDouble();
                         if (p > r)
@@ -69,6 +77,9 @@ namespace Pizza
                 {
                     cool = 0;
                     t = a * t;
+                    //Console.WriteLine("gem p: " + (sump / nump).ToString() + " temperature: " + t.ToString() + " p: " + nump.ToString());
+                    //Console.ReadLine();
+                    //t = 0.000001f;
                 }
             }
             //s.Untwine(); 
