@@ -55,8 +55,8 @@ namespace Pizza
                     {
                         double p = Math.Exp(-(next_h - s_h) / t);
 
-                       // sump += p;
-                       // nump++;
+                        // sump += p;
+                        // nump++;
 
                         //Console.WriteLine("kans op acceptatie: " + p + "d: " + (next_h - s_h).ToString());
                         double r = rnd.NextDouble();
