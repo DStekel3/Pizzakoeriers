@@ -7,7 +7,8 @@ using System.Windows.Forms;
 
 namespace Pizza
 {
-  public class Solution
+	[Serializable]
+	public class Solution
   {
 	public int n;
 	public Customer[] cs;
