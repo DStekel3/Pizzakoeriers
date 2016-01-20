@@ -236,7 +236,7 @@ namespace Pizza
 		  gemiddelde += costs;
 		  tijd += s.ElapsedMilliseconds;
 		  l.AddLine($"{rescost}");
-		  
+		  resultTime[i] = s.ElapsedMilliseconds;
 		  Console.WriteLine($"Test {nr}/{total}: {i + 1}/{aantal}");
 		  s.Reset();
 		}
